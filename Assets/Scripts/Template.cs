@@ -8,6 +8,7 @@ public class Template : MonoBehaviour
 
     private Vector2 mousePos;
 
+    //voy a poner un comentario aca porque puedo
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
