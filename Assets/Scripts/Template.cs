@@ -8,7 +8,6 @@ public class Template : MonoBehaviour
 
     private Vector2 mousePos;
 
-    // Update is called once per frame
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
