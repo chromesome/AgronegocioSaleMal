@@ -1,0 +1,104 @@
+{
+	"tileMap": [
+		{
+			"row": 0,
+			"tiles": [
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				}
+			]
+		},
+		{
+			"row": 1,
+			"tiles": [
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				}
+			]
+		},
+		{
+			"row": 2,
+			"tiles": [
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				}
+			]
+		},
+		{
+			"row": 3,
+			"tiles": [
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 6,
+					"tileResist": 100,
+					"actorType": 0,
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				},
+				{
+					"tileType": 9,
+					"tileResist": 100,
+					"actorType": 2
+				}
+			]
+		}
+	]
+}
