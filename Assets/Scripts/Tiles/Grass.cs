@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public class Grass : Tile
 {
-    public int id;
-    public double resistance;
-
+    
 }

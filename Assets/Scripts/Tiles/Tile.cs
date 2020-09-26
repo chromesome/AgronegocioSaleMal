@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     public int id;
     public double resistance;
-
 }
