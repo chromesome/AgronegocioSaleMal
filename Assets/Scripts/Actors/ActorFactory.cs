@@ -18,13 +18,14 @@ public class ActorFactory : MonoBehaviour
         }
     }
 
-    public Actor CreateNewActor(int id)
+    public Actor CreateNewActor(int id, float xPos, float yPos)
     {
         Actor newActor;
 
         if(actorDictionary.TryGetValue(id, out newActor))
         {
-            return Instantiate(newActor);
+            Vector3 position = new Vector3(xPos, yPos, 0f);
+            return Instantiate(newActor, position, Quaternion.identity);
         }
         else
         {

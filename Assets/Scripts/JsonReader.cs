@@ -10,27 +10,34 @@ public class JsonReader : MonoBehaviour
 
     private void Start()
     {
-        //JsonUtility.FromJson<Ground>(jsonFile.text);
-        Ground ground = JsonConvert.DeserializeObject<Ground>(jsonFile.text);
+        //GridCell gridCellInfo = JsonConvert.DeserializeObject<GridCell>(jsonFile.text);
+        
 
-        Debug.Log("ground size " + ground.tileMap != null ? "success" : "fail");
+        //Debug.Log(gridCellInfo);
+        MapInfo mapInfo = GetMapinfoFromJSON<MapInfo>();
+
+    }
+
+    public MapInfo GetMapinfoFromJSON<MapInfo>()
+    {
+        return JsonConvert.DeserializeObject<MapInfo>(jsonFile.text);
     }
 
 }
 
 
-public class Ground
+public class MapInfo
 {
-    public List<GroundRow> tileMap;
+    public List<MapRow> tileMap;
 }
 
-public class GroundRow
+public class MapRow
 {
     public int row;
-    public List<GroundTile> tiles;
+    public List<MapTile> tiles;
 }
 
-public class GroundTile
+public class MapTile
 {
     public int tileType;
     public double tileResist;
