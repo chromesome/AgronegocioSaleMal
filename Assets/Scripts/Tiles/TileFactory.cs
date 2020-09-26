@@ -20,15 +20,13 @@ public class TileFactory : MonoBehaviour
         }    
     }
 
-    public Tile CreateNewTile(int id, double resistance, float xPos, float yPos)
+    public Tile CreateNewTile(int id)
     {
         Tile newTile;
 
         if (tileDictionary.TryGetValue(id, out newTile))
         {
-            Vector3 position = new Vector3(xPos, yPos, 0f);
-            newTile.resistance = resistance;
-            return Instantiate(newTile, position, Quaternion.identity);
+            return Instantiate(newTile);
         }
         else
         {

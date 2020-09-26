@@ -1,31 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GridCell
+public class GridCell : MonoBehaviour
 {
-    public int tileType = 0;
-    public int actorType = 0;
-    public double tileResist = 0f;
+    public Tile tile;
+    public Actor actor;
+    public int xPos;
+    public int yPos;
 
-    public GridCell(int n_tileType, int n_actorTyle, double n_tileResist)
+    public GridCell()
     {
-        tileType = n_tileType;
-        actorType = n_actorTyle;
-        tileResist = n_tileResist;
     }
 
-    public int GetGridCellTileType()
+    public Tile GetGridCellTileType()
     {
-        return tileType;
+        return tile;
     }
 
-    public int GetGridCellActorType()
+    public Actor GetGridCellActorType()
     {
-        return actorType;
-    }
-
-    public double GetGridCellTileResist()
-    {
-        return tileResist;
+        return actor;
     }
 }

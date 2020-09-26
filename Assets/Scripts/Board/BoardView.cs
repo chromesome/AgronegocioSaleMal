@@ -14,42 +14,34 @@ public class BoardView : MonoBehaviour
     public ActorFactory actorFactory;
 
     public JsonReader jsonReader;
+    public Board board;
 
     void Start()
     {
         MapInfo mapInfo = jsonReader.GetMapinfoFromJSON<MapInfo>();
-        map = new Board();
-        map.GenerateMap(mapInfo);
 
-        cells = map.GetGridCellsData();
+        board.GenerateMap(mapInfo);
+        cells = board.GetGridCellsData();
 
-        InstantiateTiles();
-        InstantiateActors();
+        InstantiateElements(mapInfo);
     }
 
-    void InstantiateTiles()
+    void InstantiateElements(MapInfo mapInfo)
     {
         for (int i = 0; i < cells.Length; i++)
         {
+            MapRow mapRow = mapInfo.tileMap[i];
             for (int j = 0; j < cells[i].Length; j++)
             {
-                int tileId = cells[i][j].GetGridCellTileType();
-                double tileResistance = cells[i][j].GetGridCellTileResist();
-                Debug.Log("Titolog::tileId=" + tileId + "||tileResistance=" + tileResistance);
-                tileFactory.CreateNewTile(tileId, tileResistance, (float)i, (float)j);
-            }
-        }
-    }
+                MapTile mapTile = mapRow.tiles[j];
 
-    void InstantiateActors()
-    {
-        for (int i = 0; i < cells.Length; i++)
-        {
-            for (int j = 0; j < cells[i].Length; j++)
-            {
-                int actorId = cells[i][j].GetGridCellActorType();
-                Debug.Log("Titolog::actorId=" + actorId);
-                actorFactory.CreateNewActor(actorId, (float)i, (float)j);
+                cells[i][j].tile = tileFactory.CreateNewTile(mapTile.tileType);
+                cells[i][j].actor = actorFactory.CreateNewActor(mapTile.actorType);
+                cells[i][j].xPos = i;
+                cells[i][j].yPos = j;
+
+                cells[i][j].tile.transform.position = new Vector3((float)i, (float)j, 0f);
+                cells[i][j].actor.transform.position = new Vector3((float)i, (float)j, 0f);
             }
         }
     }

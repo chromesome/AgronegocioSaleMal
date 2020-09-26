@@ -8,7 +8,7 @@ public class ActorFactoryTest : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Alpha1))
+        /*if(Input.GetKey(KeyCode.Alpha1))
         {
             _actorFactory.CreateNewActor(0, 0f, 0f);
         }
@@ -23,6 +23,6 @@ public class ActorFactoryTest : MonoBehaviour
         else if (Input.GetKey(KeyCode.Alpha4))
         {
             _actorFactory.CreateNewActor(3, 1f, 1f);
-        }
+        }*/
     }
 }
