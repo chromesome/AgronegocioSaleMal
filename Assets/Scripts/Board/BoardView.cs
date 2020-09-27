@@ -16,39 +16,87 @@ public class BoardView : MonoBehaviour
     public JsonReader jsonReader;
     public Board board;
 
+    int columns;
+    int rows;
+
+    float tileWidth = 1f;
+    float tileHeight = 1f;
+    float gap = 0.0f;
+
+    Vector3 startPosition;
+
     void Start()
     {
         MapInfo mapInfo = jsonReader.GetMapinfoFromJSON<MapInfo>();
+        columns = mapInfo.tileMap.Count;
+        rows = mapInfo.tileMap[0].tiles.Count;
 
         board.GenerateMap(mapInfo);
         cells = board.GetGridCellsData();
 
+        AddGap();
+        GetStartPosition();
         InstantiateElements(mapInfo);
+    }
+
+    void AddGap()
+    {
+        tileWidth += tileWidth * gap;
+        tileHeight += tileHeight * gap;
+    }
+
+    void GetStartPosition()
+    {
+        // setear start position
+        float x = 0;
+        float y = (tileHeight /2) * (rows / 2);
+
+        startPosition = new Vector3(x, y, 0);
+    }
+
+    private Vector3 CalculateWorldPosition(Vector3 gridPosition)
+    {
+        // TODO: Explicar este calculo de forma clara, ahora no me da
+        float x = startPosition.x - gridPosition.x * tileWidth /2 + gridPosition.y * tileWidth / 2;
+        float y = startPosition.y - gridPosition.y * tileHeight * 0.25f - gridPosition.x * tileHeight * 0.25f;
+
+        return new Vector3(x, y, 0);
     }
 
     void InstantiateElements(MapInfo mapInfo)
     {
-        for (int i = 0; i < cells.Length; i++)
+        for (int i = 0; i < mapInfo.tileMap.Count; i++)
         {
             MapRow mapRow = mapInfo.tileMap[i];
-            for (int j = 0; j < cells[i].Length; j++)
+
+
+            for (int j = 0; j < mapRow.tiles.Count; j++)
             {
                 MapTile mapTile = mapRow.tiles[j];
 
-                cells[i][j].tile = tileFactory.CreateNewTile(mapTile.tileType);
-                cells[i][j].actor = actorFactory.CreateNewActor(mapTile.actorType);
-                cells[i][j].xPos = i;
-                cells[i][j].yPos = j;
+                GridCell cell = cells[i][j];
 
-                cells[i][j].tile.transform.position = new Vector3((float)i, (float)j, 0f);
-                cells[i][j].actor.transform.position = new Vector3((float)i, (float)j, 0f);
+                cell.tile = tileFactory.CreateNewTile(mapTile.tileType);
+
+                // TODO: Esto lo necesitamos?
+                cell.xPos = i;
+                cell.yPos = j;
+                // -----------
+
+                Vector2 gridPosition = new Vector2(i, j);
+                Vector3 worldPosition = CalculateWorldPosition(gridPosition);
+                cell.tile.transform.position = worldPosition;
+                cell.tile.name = "tile" + i + "|" + j;
+
+                // If has actor
+                if (mapTile.actorType >= 0)
+                {
+                    cell.actor = actorFactory.CreateNewActor(mapTile.actorType);
+                    cell.actor.transform.position = worldPosition;
+                    cell.actor.name = "actor" + i + "|" + j;
+                }
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -8,6 +8,8 @@ public class GridCell : MonoBehaviour
     public int xPos;
     public int yPos;
 
+    public List<GridCell> neighbors;
+
     public GridCell()
     {
     }
