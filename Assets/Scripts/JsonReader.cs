@@ -8,19 +8,9 @@ public class JsonReader : MonoBehaviour
 {
     public TextAsset jsonFile;
 
-    private void Start()
+    public MapInfo GetMapinfoFromJSON<MapInfo>(string jsonFileText)
     {
-        //GridCell gridCellInfo = JsonConvert.DeserializeObject<GridCell>(jsonFile.text);
-        
-
-        //Debug.Log(gridCellInfo);
-        MapInfo mapInfo = GetMapinfoFromJSON<MapInfo>();
-
-    }
-
-    public MapInfo GetMapinfoFromJSON<MapInfo>()
-    {
-        return JsonConvert.DeserializeObject<MapInfo>(jsonFile.text);
+        return JsonConvert.DeserializeObject<MapInfo>(jsonFileText);
     }
 
 }
@@ -28,6 +18,7 @@ public class JsonReader : MonoBehaviour
 
 public class MapInfo
 {
+    public int level;
     public List<MapRow> tileMap;
 }
 
