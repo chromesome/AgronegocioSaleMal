@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178590627}
-  - component: {fileID: 178590626}
   - component: {fileID: 178590629}
   - component: {fileID: 178590628}
   - component: {fileID: 178590630}
@@ -145,25 +144,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &178590626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178590625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c2d7fc82d51644baf24f7c4d67c84c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile_groundAsset: {fileID: 5242343208663237756, guid: e2a6dbbba82f4134d820fbf1b24b4d8b, type: 3}
-  tile_waterlandAsset: {fileID: 0}
-  actor_noneAsset: {fileID: 0}
-  actor_baseAsset: {fileID: 2387656917562396437, guid: c24f284bdb4d11b45a5a433092dd257c, type: 3}
-  actor_factoryAsset: {fileID: 0}
-  actor_treeAsset: {fileID: 0}
-  actor_fireAsset: {fileID: 0}
 --- !u!4 &178590627
 Transform:
   m_ObjectHideFlags: 0
@@ -225,7 +205,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: -3860125998757155820, guid: 5eb6279b31f52b74fb25108c0365402d, type: 3}
+  - {fileID: 5161381014091979647, guid: 2c7a12781407e6549a193bb52988b2b3, type: 3}
+  - {fileID: 5938532864297953079, guid: a2e98a9e03a0aac4f8766ee16e8acd24, type: 3}
+  - {fileID: 5747637306427391123, guid: 460eccfcc85bb0f41b6b4c9dbf701877, type: 3}
+  - {fileID: 8208161536546408436, guid: 6aee2e51e612b6549b47e8d690daf51c, type: 3}
+  - {fileID: 4379459965376841936, guid: c91e39736644d554089909bba4dfbad6, type: 3}
+  - {fileID: 5549008855978770931, guid: 7dcef09cfbbc18848910db19ea624052, type: 3}
+  - {fileID: 3049581757724974979, guid: 5e301b18989487740b8e622312547513, type: 3}
+  - {fileID: 4167849822113411600, guid: b119d58d69441c14c8e94a334f4467b0, type: 3}
+  - {fileID: 1854320620158634650, guid: 50791b5fc9d33df4480b953504e9a8d0, type: 3}
+  - {fileID: 7780192910044607300, guid: f7388d7d7449e0e4f9e782e185a989be, type: 3}
 --- !u!114 &178590631
 MonoBehaviour:
   m_ObjectHideFlags: 0
