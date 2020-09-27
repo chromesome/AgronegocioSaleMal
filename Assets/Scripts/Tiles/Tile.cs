@@ -6,4 +6,8 @@ public class Tile : MonoBehaviour
 {
     public int id;
     public double resistance;
+
+    public Transform spawnPoint;
+
+
 }

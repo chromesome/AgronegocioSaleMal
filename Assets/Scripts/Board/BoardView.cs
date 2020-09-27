@@ -54,7 +54,7 @@ public class BoardView : MonoBehaviour
         startPosition = new Vector3(x, y, 0);
     }
 
-    private Vector3 CalculateWorldPosition(Vector3 gridPosition)
+    private Vector3 CalculateWorldPosition(Vector2 gridPosition)
     {
         // TODO: Explicar este calculo de forma clara, ahora no me da
         float x = startPosition.x - gridPosition.x * tileWidth /2 + gridPosition.y * tileWidth / 2;
@@ -92,7 +92,7 @@ public class BoardView : MonoBehaviour
                 if (mapTile.actorType >= 0)
                 {
                     cell.actor = actorFactory.CreateNewActor(mapTile.actorType);
-                    cell.actor.transform.position = worldPosition;
+                    cell.actor.transform.position = cell.tile.spawnPoint.transform.position;
                     cell.actor.name = "actor" + i + "|" + j;
                 }
             }
