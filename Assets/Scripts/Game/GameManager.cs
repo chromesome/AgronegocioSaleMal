@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private List<TextAsset> mapTextAssets;
-    private Dictionary<int, TextAsset> mapDictionary;
+    private Dictionary<int, MapInfo> mapDictionary;
 
 
     void Awake()
@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // Almacenamos todos los niveles en un diccionario
-        mapDictionary = new Dictionary<int, TextAsset>();
+        mapDictionary = new Dictionary<int, MapInfo>();
 
         foreach (TextAsset map in mapTextAssets)
         {
             MapInfo mapInfo = jsonReader.GetMapinfoFromJSON<MapInfo>(map.text);
             int mapInfoLevel = mapInfo.level;
-            mapDictionary.Add(mapInfoLevel, map);
+            mapDictionary.Add(mapInfoLevel, mapInfo);
         }
     }
 
@@ -55,22 +55,15 @@ public class GameManager : MonoBehaviour
     // Llamamos a este método cada vez que queremos inicializar un nivel
     void SetupMap()
     {
-        TextAsset mapTextAsset;
         MapInfo mapInfo;
 
-        if (mapDictionary.TryGetValue(level, out mapTextAsset))
+        if (mapDictionary.TryGetValue(level, out mapInfo))
         {
-            string mapText = mapTextAsset.text;
-            mapInfo = jsonReader.GetMapinfoFromJSON<MapInfo>(mapText);
+            boardView.SetupBoard(mapInfo);
         }
         else
         {
             throw new System.Exception("Mapa no reconocido");
-        }
-
-        if (mapInfo != null)
-        {
-            boardView.SetupBoard(mapInfo);
         }
     }
 
@@ -103,7 +96,6 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Hacer que acá ""gane"" (?
         Debug.Log("Felicitaciones kpo, hiciste concha todo, ahora fijate si te podes comer lo' dolare (?");
-        Destroy(gameObject);
         SceneManager.LoadScene(ENDGAME);
     }
 }
