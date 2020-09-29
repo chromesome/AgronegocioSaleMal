@@ -13,7 +13,6 @@ public class BoardView : MonoBehaviour
     public TileFactory tileFactory;
     public ActorFactory actorFactory;
 
-    public JsonReader jsonReader;
     public Board board;
 
     int columns;
@@ -25,9 +24,8 @@ public class BoardView : MonoBehaviour
 
     Vector3 startPosition;
 
-    void Start()
+    public void SetupBoard(MapInfo mapInfo)
     {
-        MapInfo mapInfo = jsonReader.GetMapinfoFromJSON<MapInfo>();
         columns = mapInfo.tileMap.Count;
         rows = mapInfo.tileMap[0].tiles.Count;
 
