@@ -17,9 +17,4 @@ public class GridCell : MonoBehaviour
     {
         return tile;
     }
-
-    public Actor GetGridCellActorType()
-    {
-        return actor;
-    }
 }
