@@ -99,8 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   resistance: 0
-  selectable: 1
+  actor: {fileID: 0}
+  neighbors: []
   spawnPoint: {fileID: 6576617143841418341}
+  selectable: 0
 --- !u!60 &8284391427129912225
 PolygonCollider2D:
   m_ObjectHideFlags: 0
