@@ -1,4 +1,5 @@
 {
+	"level": 1,
 	"tileMap": [
 		{
 			"row": 0,
@@ -6,22 +7,22 @@
 				{
 					"tileType": 9,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 2
 				},
 				{
 					"tileType": 1,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 2
 				},
 				{
 					"tileType": 2,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 3
 				},
 				{
 					"tileType": 3,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 3
 				},
 				{
 					"tileType": 3,
@@ -31,7 +32,7 @@
 				{
 					"tileType": 7,
 					"tileResist": 100,
-					"actorType": 2
+					"actorType": 3
 				}
 			]
 		},
@@ -41,17 +42,17 @@
 				{
 					"tileType": 9,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 3
 				},
 				{
 					"tileType": 6,
 					"tileResist": 100,
-					"actorType": 2
+					"actorType": 3
 				},
 				{
 					"tileType": 4,
 					"tileResist": 100,
-					"actorType": -1
+					"actorType": 3
 				},
 				{
 					"tileType": 4,
