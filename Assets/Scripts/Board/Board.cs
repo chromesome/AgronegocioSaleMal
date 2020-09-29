@@ -28,37 +28,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        SetNeighbors(t);
         return t;
-    }
-
-    // Lo más cabeza, habra una forma mejor?
-    private void SetNeighbors(GridCell[][] t)
-    {
-        for (int x = 0; x < columns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                GridCell gridCell = t[x][y];
-                gridCell.neighbors = new List<GridCell>();
-
-                // look left
-                if(x > 0)
-                    gridCell.neighbors.Add(t[x - 1][y]);
-
-                // look right
-                if (x < columns-1)
-                    gridCell.neighbors.Add(t[x + 1][y]);
-
-                // look up
-                if (y > 0)
-                    gridCell.neighbors.Add(t[x][y - 1]);
-
-                // look down
-                if (y < rows-1)
-                    gridCell.neighbors.Add(t[x][y + 1]);
-            }
-        }
     }
 
     public GridCell[][] GetGridCellsData()

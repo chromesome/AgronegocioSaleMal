@@ -21,6 +21,19 @@ public class GameManager : MonoBehaviour
     private List<TextAsset> mapTextAssets;
     private Dictionary<int, MapInfo> mapDictionary;
 
+    private Tile tileSelected;
+    public Tile SelectedTile
+    {
+        get => tileSelected;
+        set
+        {
+            if(tileSelected != null)
+            {
+                tileSelected.Unselect();
+            }
+            tileSelected = value;
+        }
+    }
 
     void Awake()
     {
@@ -98,4 +111,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Felicitaciones kpo, hiciste concha todo, ahora fijate si te podes comer lo' dolare (?");
         SceneManager.LoadScene(ENDGAME);
     }
+
+
+    // Debug GUI
+    private void OnGUI()
+    {
+        if(tileSelected != null)
+            GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
+    }
 }
+

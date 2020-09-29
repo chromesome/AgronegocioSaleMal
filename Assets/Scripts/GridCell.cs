@@ -4,7 +4,6 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     public Tile tile;
-    public Actor actor;
     public int xPos;
     public int yPos;
 
@@ -17,10 +16,5 @@ public class GridCell : MonoBehaviour
     public Tile GetGridCellTileType()
     {
         return tile;
-    }
-
-    public Actor GetGridCellActorType()
-    {
-        return actor;
     }
 }
