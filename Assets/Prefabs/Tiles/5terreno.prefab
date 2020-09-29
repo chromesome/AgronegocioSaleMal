@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 7212095577111077345}
   - component: {fileID: 3740245467965756899}
   - component: {fileID: 4167849822113411600}
+  - component: {fileID: 9089819128653874386}
   m_Layer: 0
   m_Name: 5terreno
   m_TagString: Untagged
@@ -128,4 +129,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   resistance: 0
+  selectable: 1
   spawnPoint: {fileID: 1564931538281415373}
+--- !u!60 &9089819128653874386
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544706445118924704}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.39}
+    oldSize: {x: 1, y: 0.65}
+    newSize: {x: 1, y: 0.54333335}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.49956802, y: 0.00047392584}
+      - {x: -0.00041484507, y: 0.25097334}
+      - {x: -0.49900052, y: 0.00020890869}
+      - {x: -0.00054668635, y: -0.2502728}

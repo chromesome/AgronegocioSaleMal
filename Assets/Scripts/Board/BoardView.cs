@@ -94,7 +94,40 @@ public class BoardView : MonoBehaviour
                     cell.actor = actorFactory.CreateNewActor(mapTile.actorType);
                     cell.actor.transform.position = cell.tile.spawnPoint.transform.position;
                     cell.actor.name = "actor" + i + "|" + j;
+
+                    cell.tile.actor = cell.actor;
                 }
+            }
+        }
+
+        SetNeighbors(cells);
+    }
+
+    // Lo más cabeza, habra una forma mejor?
+    private void SetNeighbors(GridCell[][] t)
+    {
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                Tile tile = t[x][y].tile;
+                tile.neighbors = new List<Tile>();
+
+                // look left
+                if (x > 0)
+                    tile.neighbors.Add(t[x - 1][y].tile);
+
+                // look right
+                if (x < columns-1)
+                    tile.neighbors.Add(t[x + 1][y].tile);
+
+                // look up
+                if (y > 0)
+                    tile.neighbors.Add(t[x][y - 1].tile);
+
+                // look down
+                if (y < rows-1)
+                    tile.neighbors.Add(t[x][y + 1].tile);
             }
         }
     }
