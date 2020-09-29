@@ -89,10 +89,10 @@ public class BoardView : MonoBehaviour
                 // If has actor
                 if (mapTile.actorType >= 0)
                 {
-                    cell.actor = actorFactory.CreateNewActor(mapTile.actorType);
-                    cell.actor.name = "actor" + i + "|" + j;
+                    Actor actor = actorFactory.CreateNewActor(mapTile.actorType);
+                    actor.name = "actor" + i + "|" + j;
 
-                    cell.tile.Actor = cell.actor;
+                    cell.tile.Actor = actor;
                 }
             }
         }
