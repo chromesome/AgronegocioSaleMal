@@ -240,6 +240,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d75b037420a622418628a8dae1bb738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileWidth: 1
+  tileHeight: 1
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &415400378
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +296,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -352,6 +355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d75b037420a622418628a8dae1bb738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileWidth: 1
+  tileHeight: 1
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &437322183
 Transform:
   m_ObjectHideFlags: 0
