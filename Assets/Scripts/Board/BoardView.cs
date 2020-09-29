@@ -90,10 +90,9 @@ public class BoardView : MonoBehaviour
                 if (mapTile.actorType >= 0)
                 {
                     cell.actor = actorFactory.CreateNewActor(mapTile.actorType);
-                    cell.actor.transform.position = cell.tile.spawnPoint.transform.position;
                     cell.actor.name = "actor" + i + "|" + j;
 
-                    cell.tile.actor = cell.actor;
+                    cell.tile.Actor = cell.actor;
                 }
             }
         }

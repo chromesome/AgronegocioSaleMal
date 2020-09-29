@@ -6,7 +6,17 @@ public class Tile : MonoBehaviour
 {
     public int id;
     public double resistance;
-    public Actor actor;
+    Actor actor;
+    public Actor Actor {
+        get => actor;
+
+        set
+        {
+            actor = value;
+            actor.transform.position = spawnPoint.transform.position;
+        }
+    }
+
     public List<Tile> neighbors;
     public Transform spawnPoint;
 
@@ -43,7 +53,7 @@ public class Tile : MonoBehaviour
     {
         #region DEBUG
         Debug.Log("OnMouseDown " + this.name);
-        Debug.Log("Actor " + actor);
+        Debug.Log("Actor " + Actor);
         Debug.Log("neighbors------");
         foreach (Tile item in neighbors)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     public Tile tile;
-    public Actor actor;
+    public Actor actor;     // TODO: nos sigue sirviendo aca? lo sacamo?
     public int xPos;
     public int yPos;
 
