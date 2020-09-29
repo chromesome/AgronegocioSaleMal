@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,6 +66,29 @@ public class Tile : MonoBehaviour
         {
             selected = true;
             sprTile.color = Color.red;
+            GameManager.instance.SelectedTile = this;
         }
+    }
+
+    internal void Unselect()
+    {
+        selected = false;
+        sprTile.color = Color.white;
+    }
+
+    //DEBUG
+    internal string GetDetails()
+    {
+        String tileDetails = "";
+        // text stream
+        tileDetails += "Tile selected: " + this.name;
+        tileDetails += "\nActor " + Actor;
+        tileDetails += "\nneighbors------";
+        foreach (Tile item in neighbors)
+        {
+            tileDetails += "\n" + item.name;
+        }
+
+        return tileDetails;
     }
 }
