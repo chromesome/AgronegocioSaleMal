@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -8,6 +9,9 @@ public class Tile : MonoBehaviour
     public int id;
     public double resistance;
     Actor actor;
+
+    List<Actions> tileActions;
+
     public Actor Actor {
         get => actor;
 
@@ -26,6 +30,17 @@ public class Tile : MonoBehaviour
     SpriteRenderer sprTile;
     bool selected = false;
 
+    void Awake()
+    {
+        SetupActions();
+    }
+
+    void SetupActions()
+    {
+        // Sobre escribir en clase heredada
+        tileActions = new List<Actions>();
+        tileActions.Add(Actions.Build);
+    }
 
     private void Start()
     {
@@ -34,7 +49,6 @@ public class Tile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("OnMouseEnter " + this.name);
         if(selectable && !selected)
         {
             sprTile.color = Color.gray;
@@ -43,7 +57,6 @@ public class Tile : MonoBehaviour
 
     private void OnMouseExit()
     {
-        Debug.Log("OnMouseExit " + this.name);
         if(!selected)
         {
             sprTile.color = Color.white;
@@ -90,5 +103,17 @@ public class Tile : MonoBehaviour
         }
 
         return tileDetails;
+    }
+
+    internal List<Actions> GetActions()
+    {
+        if (Actor != null)
+        {
+            return Actor.GetActions();
+        }
+        else
+        {
+            return tileActions;
+        }
     }
 }
