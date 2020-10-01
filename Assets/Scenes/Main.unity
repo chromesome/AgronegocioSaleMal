@@ -264,7 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 2
-  scrollSpeed: 200
+  dragSpeed: 40
+  scrollSpeed: 500
 --- !u!1 &472752304
 GameObject:
   m_ObjectHideFlags: 0
