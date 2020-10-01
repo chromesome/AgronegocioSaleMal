@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public BoardView boardView;
     public JsonReader jsonReader;
+
+    public ActionManager actionManager;
 
     [SerializeField]
     private List<TextAsset> mapTextAssets;
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
                 tileSelected.Unselect();
             }
             tileSelected = value;
+            OnTileUpdated();
         }
     }
 
@@ -118,6 +122,45 @@ public class GameManager : MonoBehaviour
     {
         if(tileSelected != null)
             GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
+    }
+
+    public void OnTileUpdated()
+    {
+        if (SelectedTile != null)
+        {
+            DisplayActions();
+        }
+    }
+
+    private void DisplayActions()
+    {
+        List<Actions> actions = SelectedTile.GetActions();
+        actionManager.InstantiateActions(SelectedTile, actions);
+    }
+
+    private void ActionBuild()
+    {
+        Debug.Log("Construyendo");
+    }
+
+    private void ActionFire()
+    {
+        Debug.Log("Fuego!");
+    }
+
+    private void ActionDeforest()
+    {
+        Debug.Log("Talando");
+    }
+
+    private void ActionMakeMoney()
+    {
+        Debug.Log("Platita");
+    }
+
+    private void ActionMitigate()
+    {
+        Debug.Log("Apagalo");
     }
 }
 
