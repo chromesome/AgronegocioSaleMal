@@ -97,10 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abb66a867cb241498e04ee8a577cc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 6
+  level: 6
   resistance: 0
-  selectable: 1
+  neighbors: []
   spawnPoint: {fileID: 5099420765097211650}
+  selectable: 1
 --- !u!60 &-7659855076237598142
 PolygonCollider2D:
   m_ObjectHideFlags: 0

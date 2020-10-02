@@ -16,7 +16,7 @@ public class TileFactory : MonoBehaviour
         
         foreach(Tile tile in tiles)
         {
-            tileDictionary.Add(tile.id, tile);
+            tileDictionary.Add(tile.level, tile);
         }    
     }
 
