@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public double worldHealth;
     public int level;
     public int money;
+    public int kills;
 
     public BoardView boardView;
     public JsonReader jsonReader;
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     private List<TextAsset> mapTextAssets;
     private Dictionary<int, MapInfo> mapDictionary;
 
+    public Text moneyText;
+
     private Tile tileSelected;
     public Tile SelectedTile
     {
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
             if(tileSelected != null)
             {
                 tileSelected.Unselect();
+                actionManager.ClearActionItems();
             }
             tileSelected = value;
             OnTileUpdated();
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
 
         // Empezamos siempre en level 0
         level = 0;
@@ -155,7 +160,15 @@ public class GameManager : MonoBehaviour
 
     private void ActionMakeMoney()
     {
-        Debug.Log("Platita");
+        IMakeMoney makeMoneyActor = SelectedTile.Actor as IMakeMoney;
+        if (makeMoneyActor != null)
+        {
+            makeMoneyActor.MakeMoney();
+        }
+        else
+        {
+            throw new System.Exception("Interfaz makemoney no encontrada en actor");
+        }
     }
 
     private void ActionMitigate()
