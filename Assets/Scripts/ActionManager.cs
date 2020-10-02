@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum Actions
+public enum Actions
 {
     Build, Fire, Deforest, MakeMoney, Mitigate
 }
@@ -55,7 +55,7 @@ public class ActionManager : MonoBehaviour
     }
     internal void InstantiateActions(Tile tile, List<Actions> actions)
     {
-        ClearActionItems();
+        //ClearActionItems();
 
         foreach (Actions action in actions)
         {
@@ -73,7 +73,7 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    private void ClearActionItems()
+    public void ClearActionItems()
     {
         foreach (Transform button in ParentPanel)
         {
