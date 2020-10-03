@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour, IDestructible
     Actor actor;
     Fire fire;
 
-    List<Actions> tileActions;
+    List<ActionItem> tileActions;
 
     public Actor Actor {
         get => actor;
@@ -49,11 +49,22 @@ public class Tile : MonoBehaviour, IDestructible
         SetupActions();
     }
 
-    void SetupActions()
+    public void SetupActions()
     {
-        // Sobre escribir en clase heredada
-        tileActions = new List<Actions>();
-        tileActions.Add(Actions.Build);
+        tileActions = new List<ActionItem>();
+        if (actor == null)
+        {
+            if (level > 2 && level < 6)
+            {
+                tileActions.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 60));
+                tileActions.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
+            }
+            else if (level >= 6)
+            {
+                tileActions.Add(new ActionItem(2, "Fire", "ActionFire", 0));
+            }
+        }
+        
     }
 
     private void Start()
@@ -119,7 +130,7 @@ public class Tile : MonoBehaviour, IDestructible
         return tileDetails;
     }
 
-    internal List<Actions> GetActions()
+    internal List<ActionItem> GetActions()
     {
         if(Fire != null)
         {
