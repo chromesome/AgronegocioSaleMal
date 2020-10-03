@@ -7,7 +7,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour, IDestructible
 {
     public int level;
-    public float resistance;
+    public float resistance = 100f;
+    [SerializeField] float maxResistance = 100f;
     Actor actor;
     Fire fire;
 
@@ -29,7 +30,6 @@ public class Tile : MonoBehaviour, IDestructible
 
         set
         {
-
             fire = value;
             fire.transform.parent = this.transform;
             fire.transform.position = spawnPoint.transform.position;
@@ -137,7 +137,7 @@ public class Tile : MonoBehaviour, IDestructible
 
     public float GetMaxHealth()
     {
-        throw new NotImplementedException();
+        return maxResistance;
     }
 
     public float GetCurrentHealth()
@@ -148,6 +148,25 @@ public class Tile : MonoBehaviour, IDestructible
     public float ReceiveDamage(float damage)
     {
         Debug.Log(this.name + " received damage = " + damage);
+        Tree tree = Actor as Tree;
+        if(tree != null)
+        {
+            damage = tree.ReceiveDamage(damage);
+        }
+        else if(IsOnFire())
+        {
+            Fire.Consume();
+        }
+
+        // take remaining damage
+        resistance -= damage;
+
+        if(resistance < 0)
+        {
+            // TODO: DemoteTile();
+        }
+
+        // Tile receives all damage
         return 0;
     }
 
@@ -158,7 +177,7 @@ public class Tile : MonoBehaviour, IDestructible
 
     public void TrySetFire()
     {
-        //Quien instancia el fuego?
+        //TODO: Quien instancia el fuego?
         Debug.Log("Try to set fire " + this.name);
         //bool setFire = true;
         

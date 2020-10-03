@@ -36,6 +36,11 @@ public class Fire : Actor, IHarmful, IDestructible
         return maxHealth;
     }
 
+    public void Consume()
+    {
+        ReceiveDamage(selfDamage);
+    }
+
     public float ReceiveDamage(float damage)
     {
         this.health -= damage;
@@ -49,6 +54,7 @@ public class Fire : Actor, IHarmful, IDestructible
 
     public void Extinguish()
     {
+        // TODO: Quien o como matamos al actor?
         Destroy(this);
     }
 
@@ -57,9 +63,14 @@ public class Fire : Actor, IHarmful, IDestructible
         Tile tile = this.GetComponentInParent<Tile>();
         float damage = Mathf.Clamp(maxDamage * health / maxHealth, 1, maxDamage);
         tile.ReceiveDamage(damage);
+
+        // Do half damage to all neighbours
         foreach (Tile neighbour in tile.neighbours)
         {
-            neighbour.ReceiveDamage(Mathf.Clamp(damage * 0.5f, 1, maxDamage));
+            if(!neighbour.IsOnFire())
+            {
+                neighbour.ReceiveDamage(Mathf.Clamp(damage * 0.5f, 1, maxDamage));
+            }
         }
     }
 
@@ -69,6 +80,7 @@ public class Fire : Actor, IHarmful, IDestructible
         foreach (Tile neighbour in tile.neighbours)
         {
             neighbour.TrySetFire();
+            //TODO: Quien instancia el fuego?
         }
     }
 }

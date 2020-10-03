@@ -85,6 +85,7 @@ public class BoardView : MonoBehaviour
                 Vector3 worldPosition = CalculateWorldPosition(gridPosition);
                 cell.tile.transform.position = worldPosition;
                 cell.tile.name = "tile" + i + "|" + j;
+                cell.tile.resistance = mapTile.tileResist;
 
                 // If has actor
                 if (mapTile.actorType >= 0)
@@ -93,6 +94,7 @@ public class BoardView : MonoBehaviour
                     actor.name = "actor" + i + "|" + j;
 
                     cell.tile.Actor = actor;
+                    actor.transform.parent = cell.tile.transform;
                 }
             }
         }

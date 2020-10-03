@@ -31,6 +31,6 @@ public class MapRow
 public class MapTile
 {
     public int tileType;
-    public double tileResist;
+    public float tileResist;
     public int actorType;
 }
