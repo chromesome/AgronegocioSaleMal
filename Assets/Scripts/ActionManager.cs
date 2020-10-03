@@ -5,23 +5,26 @@ using UnityEngine.UI;
 
 public enum Actions
 {
-    Build, Fire, Deforest, MakeMoney, Mitigate
+    BuildFactory, BuildFarm, Fire, Deforest, MakeMoney, Mitigate, Upgrade
 }
 
 public class ActionItem
 {
     public int id;
     public string label;
+    public int cost;
 
     public delegate void TriggerAction();
     //public TriggerAction triggerAction;
     public string triggerAction;
     //public ActionItem(int n_id, string n_label, TriggerAction f_triggerAction)
-    public ActionItem(int n_id, string n_label, string f_triggerAction)
+
+    public ActionItem(int n_id, string n_label, string f_triggerAction, int n_cost)
     {
         id = n_id;
         label = n_label;
         triggerAction = f_triggerAction;
+        cost = n_cost;
     }
     
 }
@@ -42,20 +45,23 @@ public class ActionManager : MonoBehaviour
         actionItemsDictionary = new Dictionary<int, ActionItem>();
 
         // Todas las acciones del juego deben definirse en esta lista
-        actionItems.Add(new ActionItem(0, "Build", "ActionBuild"));
-        actionItems.Add(new ActionItem(1, "Fire", "ActionFire"));
-        actionItems.Add(new ActionItem(2, "Deforest", "ActionDeforest"));
-        actionItems.Add(new ActionItem(3, "MakeMoney", "ActionMakeMoney"));
-        actionItems.Add(new ActionItem(4, "Mitigate", "ActionMitigate"));
+        actionItems.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 50));
+        actionItems.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
+        actionItems.Add(new ActionItem(2, "Fire", "ActionFire", 0));
+        actionItems.Add(new ActionItem(3, "Deforest", "ActionDeforest", 0));
+        actionItems.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
+        actionItems.Add(new ActionItem(5, "Mitigate", "ActionMitigate", 0));
+        actionItems.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", 10));
 
         foreach (ActionItem item in actionItems)
         {
             actionItemsDictionary.Add(item.id, item);
         }
     }
-    internal void InstantiateActions(Tile tile, List<Actions> actions)
+
+    internal void InstantiateActions(List<Actions> actions)
     {
-        //ClearActionItems();
+        ClearActionItems();
 
         foreach (Actions action in actions)
         {
@@ -66,7 +72,10 @@ public class ActionManager : MonoBehaviour
                 actionItemButton.transform.SetParent(ParentPanel, false);
                 actionItemButton.transform.localScale = new Vector3(1, 1, 1);
                 Button tempButton = actionItemButton.GetComponent<Button>();
+                ActionProperties actionProperties = actionItemButton.GetComponent<ActionProperties>();
 
+                actionProperties.actionId = (int)action;
+                actionProperties.actionCost = actionItem.cost;
                 actionItemButton.GetComponentInChildren<Text>().text = actionItem.label;
                 tempButton.onClick.AddListener(() => TriggerAction(actionItem.triggerAction));
             }
@@ -83,6 +92,7 @@ public class ActionManager : MonoBehaviour
 
     private void TriggerAction(string triggerAction)
     {
+        // Hacemos esto aca para limpiar los action items.. hay que ver si es la mejor forma de resolverlo
         GameManager.instance.Invoke(triggerAction, 0f);
     }
 }

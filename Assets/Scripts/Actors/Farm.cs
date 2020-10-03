@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Farm : Actor, IMakeMoney
 {
-
-    void Start()
-    {
-        InvokeRepeating("MakeMoney", 1f, 1f);
-    }
+    public int level;
+    public List<Sprite> farmStateSprites;
     public void MakeMoney()
     {
         GameManager gameManager = GameManager.instance;
-        gameManager.money += 1;
+        gameManager.money += 1; // TODO: Revisar fórmula
         gameManager.moneyText.text = gameManager.money.ToString();
     }
 
@@ -20,10 +17,17 @@ public class Farm : Actor, IMakeMoney
     {
         base.SetupActions();
         actions.Add(Actions.MakeMoney);
+        actions.Add(Actions.Upgrade);
     }
 
     public void Upgradeable()
     {
-        // Update de Farm
+        Debug.Log("Upgradeando granja");
+        // Cambiar tile
+        if (level < 5)
+        {
+            level++;
+            this.GetComponent<SpriteRenderer>().sprite = farmStateSprites[level];
+        }
     }
 }

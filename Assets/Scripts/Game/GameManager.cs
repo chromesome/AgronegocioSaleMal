@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
             if(tileSelected != null)
             {
                 tileSelected.Unselect();
-                actionManager.ClearActionItems();
             }
             tileSelected = value;
             OnTileUpdated();
@@ -140,12 +139,28 @@ public class GameManager : MonoBehaviour
     private void DisplayActions()
     {
         List<Actions> actions = SelectedTile.GetActions();
-        actionManager.InstantiateActions(SelectedTile, actions);
+        actionManager.InstantiateActions(actions);
     }
 
-    private void ActionBuild()
+    private void ActionBuild(int actorId)
     {
-        Debug.Log("Construyendo");
+        ActorFactory actorFactory = this.GetComponent<ActorFactory>();
+        Actor actor = actorFactory.CreateNewActor(actorId); // 0 pertenece a Factory, hacer un enum con esto o una const
+        SelectedTile.Actor = actor;
+        SelectedTile.SetupActions();
+        actionManager.InstantiateActions(SelectedTile.GetActions());
+    }
+
+    private void ActionBuildFarm()
+    {
+        ActionBuild(0); // 0 pertenece a Factory, hacer un enum con esto o una const
+        money -= 50; // Esto tiene que estar definido en otra parte
+    }
+
+    private void ActionBuildFactory()
+    {
+        ActionBuild(1); // 1 pertenece a Farm, hacer un enum con esto o una const
+        money -= 100; // Esto tiene que estar definido en otra parte
     }
 
     private void ActionFire()
@@ -174,6 +189,19 @@ public class GameManager : MonoBehaviour
     private void ActionMitigate()
     {
         Debug.Log("Apagalo");
+    }
+
+    private void ActionUpgrade()
+    {
+        IMakeMoney makeMoneyActor = SelectedTile.Actor as IMakeMoney;
+        if (makeMoneyActor != null)
+        {
+            makeMoneyActor.Upgradeable();
+        }
+        else
+        {
+            throw new System.Exception("Interfaz makemoney no encontrada en actor");
+        }
     }
 }
 

@@ -35,11 +35,22 @@ public class Tile : MonoBehaviour
         SetupActions();
     }
 
-    void SetupActions()
+    public void SetupActions()
     {
-        // Sobre escribir en clase heredada
         tileActions = new List<Actions>();
-        tileActions.Add(Actions.Build);
+        if (actor == null)
+        {
+            if (level > 2 && level < 6)
+            {
+                tileActions.Add(Actions.BuildFactory);
+                tileActions.Add(Actions.BuildFarm);
+            }
+            else if (level >= 6)
+            {
+                tileActions.Add(Actions.Fire);
+            }
+        }
+        
     }
 
     private void Start()
