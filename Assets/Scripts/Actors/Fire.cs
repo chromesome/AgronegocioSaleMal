@@ -1,26 +1,113 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire : Actor, IHarmful, IDestructible
 {
-    public int GetCurrentHealth()
+    float health = 100f;
+    [SerializeField] float minHealth = 50f;
+    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float selfDamage = 5f; // Damage per second done to self
+    [SerializeField] float maxDamage = 10f;  // Damage per second
+    [SerializeField] float mitigateDamage = 10f;
+    [SerializeField] int mitigateCost = 10;
+    [SerializeField] float secondsDamage;
+    [SerializeField] float secondsSpread;
+
+    [SerializeField] Fire offspring;
+
+    private void Awake()
     {
-        throw new System.NotImplementedException();
+        health = UnityEngine.Random.Range(minHealth, maxHealth);
     }
 
-    public int GetMaxHealth()
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        SetupActions();
+        InvokeRepeating("MakeDamage", 0.0f, secondsDamage);
+        InvokeRepeating("Spread", secondsSpread, secondsSpread);
     }
 
-    public int ReceiveDamage()
+    public override void SetupActions()
     {
-        throw new System.NotImplementedException();
+        actions = new List<ActionItem>();
+        actions.Add(new ActionItem(5, "Mitigate", "ActionMitigate", mitigateCost));
+    }
+
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void Consume()
+    {
+        ReceiveDamage(selfDamage);
+    }
+
+    public float ReceiveDamage(float damage)
+    {
+        Extinguish(damage);
+
+        return 0;
+    }
+
+    private void ReduceSize()
+    {
+        float newScale = Mathf.Clamp(health / maxHealth, 0.2f, 1f);
+        transform.localScale = new Vector3(newScale, newScale, 1);
+    }
+
+    public void Extinguish(float damage)
+    {
+        this.health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            ReduceSize();
+        }
     }
 
     public void MakeDamage()
     {
-        throw new System.NotImplementedException();
+        Tile tile = this.GetComponentInParent<Tile>();
+        float damage = Mathf.Clamp(maxDamage * health / maxHealth, 1, maxDamage);
+        tile.ReceiveDamage(damage);
+
+        // Do half damage to all neighbours
+        foreach (Tile neighbour in tile.neighbours)
+        {
+            if(!neighbour.IsOnFire())
+            {
+                neighbour.ReceiveDamage(Mathf.Clamp(damage * 0.5f, 1, maxDamage));
+            }
+        }
+    }
+
+    public void Spread()
+    {
+        Tile tile = this.GetComponentInParent<Tile>();
+        foreach (Tile neighbour in tile.neighbours)
+        {
+            if(!neighbour.IsOnFire())
+            {
+                neighbour.TrySetFire(offspring);
+            }
+        }
+    }
+
+    public void Mitigate()
+    {
+        GameManager gameManager = GameManager.instance;
+        gameManager.money -= mitigateCost;
+        gameManager.moneyText.text = gameManager.money.ToString();
+        ReceiveDamage(mitigateDamage);
     }
 }

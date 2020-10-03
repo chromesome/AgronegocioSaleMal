@@ -85,6 +85,7 @@ public class BoardView : MonoBehaviour
                 Vector3 worldPosition = CalculateWorldPosition(gridPosition);
                 cell.tile.transform.position = worldPosition;
                 cell.tile.name = "tile" + i + "|" + j;
+                cell.tile.resistance = mapTile.tileResist;
 
                 // If has actor
                 if (mapTile.actorType >= 0)
@@ -93,6 +94,7 @@ public class BoardView : MonoBehaviour
                     actor.name = "actor" + i + "|" + j;
 
                     cell.tile.Actor = actor;
+                    actor.transform.parent = cell.tile.transform;
                 }
             }
         }
@@ -108,23 +110,23 @@ public class BoardView : MonoBehaviour
             for (int y = 0; y < rows; y++)
             {
                 Tile tile = t[x][y].tile;
-                tile.neighbors = new List<Tile>();
+                tile.neighbours = new List<Tile>();
 
                 // look left
                 if (x > 0)
-                    tile.neighbors.Add(t[x - 1][y].tile);
+                    tile.neighbours.Add(t[x - 1][y].tile);
 
                 // look right
                 if (x < columns-1)
-                    tile.neighbors.Add(t[x + 1][y].tile);
+                    tile.neighbours.Add(t[x + 1][y].tile);
 
                 // look up
                 if (y > 0)
-                    tile.neighbors.Add(t[x][y - 1].tile);
+                    tile.neighbours.Add(t[x][y - 1].tile);
 
                 // look down
                 if (y < rows-1)
-                    tile.neighbors.Add(t[x][y + 1].tile);
+                    tile.neighbours.Add(t[x][y + 1].tile);
             }
         }
     }

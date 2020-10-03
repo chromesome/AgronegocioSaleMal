@@ -17,6 +17,9 @@ public class ActionProperties : MonoBehaviour
         {
             case 0: // Build farm
             case 1: // Build factory
+            case 2: // Set fire
+            case 3: // Deforest
+            case 5: // Mitigate
             case 6: // Upgrade
                 bool isInteractable = this.GetComponent<Button>().interactable;
                 moneyRef = GameManager.instance.money;

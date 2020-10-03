@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IDestructible
 {
     public int level;
-    public double resistance;
+    public float resistance = 100f;
+    [SerializeField] float maxResistance = 100f;
     Actor actor;
+    Fire fire;
 
     List<ActionItem> tileActions;
 
@@ -22,7 +24,19 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public List<Tile> neighbors;
+    public Fire Fire
+    {
+        get => fire;
+
+        set
+        {
+            fire = value;
+            fire.transform.parent = this.transform;
+            fire.transform.position = spawnPoint.transform.position;
+        }
+    }
+
+    public List<Tile> neighbours;
     public Transform spawnPoint;
 
     [SerializeField] bool selectable = true;
@@ -80,17 +94,20 @@ public class Tile : MonoBehaviour
         Debug.Log("OnMouseDown " + this.name);
         Debug.Log("Actor " + Actor);
         Debug.Log("neighbors------");
-        foreach (Tile item in neighbors)
+        foreach (Tile item in neighbours)
         {
             Debug.Log(item.name);
         }
         #endregion
 
-        if (selectable)
+        if(this != GameManager.instance.SelectedTile)
         {
-            selected = true;
-            sprTile.color = Color.red;
-            GameManager.instance.SelectedTile = this;
+            if (selectable)
+            {
+                selected = true;
+                sprTile.color = Color.red;
+                GameManager.instance.SelectedTile = this;
+            }
         }
     }
 
@@ -108,7 +125,7 @@ public class Tile : MonoBehaviour
         tileDetails += "Tile selected: " + this.name;
         tileDetails += "\nActor " + Actor;
         tileDetails += "\nneighbors------";
-        foreach (Tile item in neighbors)
+        foreach (Tile item in neighbours)
         {
             tileDetails += "\n" + item.name;
         }
@@ -118,7 +135,11 @@ public class Tile : MonoBehaviour
 
     internal List<ActionItem> GetActions()
     {
-        if (Actor != null)
+        if(Fire != null)
+        {
+            return Fire.GetActions();
+        }
+        else if (Actor != null)
         {
             return Actor.GetActions();
         }
@@ -126,5 +147,83 @@ public class Tile : MonoBehaviour
         {
             return tileActions;
         }
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxResistance;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return resistance;
+    }
+
+    public float ReceiveDamage(float damage)
+    {
+        Debug.Log(this.name + " received damage = " + damage);
+        Tree tree = Actor as Tree;
+        if(tree != null)
+        {
+            damage = tree.ReceiveDamage(damage);
+        }
+        else if(IsOnFire())
+        {
+            Fire.Consume();
+        }
+
+        // take remaining damage
+        resistance -= damage;
+
+        if(resistance < 0)
+        {
+            // TODO: DemoteTile();
+        }
+
+        // Tile receives all damage
+        return 0;
+    }
+
+    public bool IsOnFire()
+    {
+        return this.fire != null ? true : false;
+    }
+
+    public void TrySetFire(Fire fire)
+    {
+        Debug.Log("Try to set fire " + this.name);
+        // Si es agua no hagas nada
+        if(level < 9)
+        {
+            if(actor == null)
+            {
+                bool setFire = true;
+
+                float fireChance = resistance + level - RiskModifier();
+                float rndNumber = UnityEngine.Random.Range(0, 99);
+
+                setFire = fireChance < rndNumber ? true : false;
+
+                if (setFire)
+                {
+                    this.Fire = Instantiate(fire);
+                }
+            }
+        }
+    }
+
+    private float RiskModifier()
+    {
+        float riskModifier = 0f;
+
+        foreach (Tile tile in neighbours)
+        {
+            if (tile.IsOnFire())
+            {
+                riskModifier += 1f;
+            }
+        }
+
+        return riskModifier;
     }
 }

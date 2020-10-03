@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     private void OnGUI()
     {
         if(tileSelected != null)
-            GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
+            GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
     }
 
     public void OnTileUpdated()
@@ -165,12 +165,20 @@ public class GameManager : MonoBehaviour
 
     private void ActionFire()
     {
-        Debug.Log("Fuego!");
+        if(!SelectedTile.IsOnFire())
+        {
+            ActorFactory actorFactory = this.GetComponent<ActorFactory>();
+            SelectedTile.Fire = actorFactory.CreateNewActor(3) as Fire;
+        }
     }
 
     private void ActionDeforest()
     {
-        Debug.Log("Talando");
+        Tree tree = SelectedTile.Actor as Tree;
+        if (tree != null)
+        {
+            tree.Chop();
+        }
     }
 
     private void ActionMakeMoney()
@@ -188,7 +196,11 @@ public class GameManager : MonoBehaviour
 
     private void ActionMitigate()
     {
-        Debug.Log("Apagalo");
+        Fire fire = SelectedTile.Fire;
+        if(fire != null)
+        {
+            fire.Mitigate();
+        }
     }
 
     private void ActionUpgrade()

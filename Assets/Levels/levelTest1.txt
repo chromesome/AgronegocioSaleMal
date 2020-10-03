@@ -57,7 +57,7 @@
 				{
 					"tileType": 4,
 					"tileResist": 100,
-					"actorType": 3
+					"actorType": 2
 				},
 				{
 					"tileType": 8,
@@ -102,7 +102,7 @@
 				{
 					"tileType": 6,
 					"tileResist": 100,
-					"actorType": 3
+					"actorType": -1
 				}
 			]
 		},
