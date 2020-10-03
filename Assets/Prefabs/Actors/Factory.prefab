@@ -97,3 +97,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   resistance: 0
+  maxUpgradeLevel: 6
+  level: 0
+  multiplier: 20
+  factoryStateSprites:
+  - {fileID: 21300000, guid: 932e692aa6b5cea4891654d8cf7bf7e5, type: 3}
+  - {fileID: 21300000, guid: 81207c4d6c00e59498fb4916d420e133, type: 3}
+  - {fileID: 21300000, guid: d79cfe864f28d6c4fa5eba56bc140b05, type: 3}
+  - {fileID: 21300000, guid: 858e27d8495fa6f498e596d579318756, type: 3}
+  - {fileID: 21300000, guid: a1d7e36e06d49644bbe43632f60dc593, type: 3}
+  - {fileID: 21300000, guid: 584e04626f5181d42a6ddaa1772a5282, type: 3}
