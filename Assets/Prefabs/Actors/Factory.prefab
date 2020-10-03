@@ -97,8 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   resistance: 0
-  actions: 
+  maxUpgradeLevel: 6
   level: 0
+  multiplier: 20
   factoryStateSprites:
   - {fileID: 21300000, guid: 932e692aa6b5cea4891654d8cf7bf7e5, type: 3}
   - {fileID: 21300000, guid: 81207c4d6c00e59498fb4916d420e133, type: 3}
