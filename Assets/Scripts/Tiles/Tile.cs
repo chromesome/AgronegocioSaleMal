@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     public double resistance;
     Actor actor;
 
-    List<Actions> tileActions;
+    List<ActionItem> tileActions;
 
     public Actor Actor {
         get => actor;
@@ -37,17 +37,17 @@ public class Tile : MonoBehaviour
 
     public void SetupActions()
     {
-        tileActions = new List<Actions>();
+        tileActions = new List<ActionItem>();
         if (actor == null)
         {
             if (level > 2 && level < 6)
             {
-                tileActions.Add(Actions.BuildFactory);
-                tileActions.Add(Actions.BuildFarm);
+                tileActions.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 60));
+                tileActions.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
             }
             else if (level >= 6)
             {
-                tileActions.Add(Actions.Fire);
+                tileActions.Add(new ActionItem(2, "Fire", "ActionFire", 0));
             }
         }
         
@@ -116,7 +116,7 @@ public class Tile : MonoBehaviour
         return tileDetails;
     }
 
-    internal List<Actions> GetActions()
+    internal List<ActionItem> GetActions()
     {
         if (Actor != null)
         {

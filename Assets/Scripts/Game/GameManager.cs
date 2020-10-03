@@ -124,8 +124,8 @@ public class GameManager : MonoBehaviour
     // Debug GUI
     private void OnGUI()
     {
-        if(tileSelected != null)
-            GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
+        //if(tileSelected != null)
+            //GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
     }
 
     public void OnTileUpdated()
@@ -138,8 +138,8 @@ public class GameManager : MonoBehaviour
 
     private void DisplayActions()
     {
-        List<Actions> actions = SelectedTile.GetActions();
-        actionManager.InstantiateActions(actions);
+        List<ActionItem> actions = SelectedTile.GetActions();
+        actionManager.InstantiateActions(SelectedTile, actions);
     }
 
     private void ActionBuild(int actorId)
@@ -148,13 +148,13 @@ public class GameManager : MonoBehaviour
         Actor actor = actorFactory.CreateNewActor(actorId); // 0 pertenece a Factory, hacer un enum con esto o una const
         SelectedTile.Actor = actor;
         SelectedTile.SetupActions();
-        actionManager.InstantiateActions(SelectedTile.GetActions());
+        actionManager.InstantiateActions(SelectedTile, SelectedTile.GetActions());
     }
 
     private void ActionBuildFarm()
     {
         ActionBuild(0); // 0 pertenece a Factory, hacer un enum con esto o una const
-        money -= 50; // Esto tiene que estar definido en otra parte
+        money -= 60; // Esto tiene que estar definido en otra parte
     }
 
     private void ActionBuildFactory()
@@ -197,6 +197,7 @@ public class GameManager : MonoBehaviour
         if (makeMoneyActor != null)
         {
             makeMoneyActor.Upgradeable();
+            actionManager.InstantiateActions(SelectedTile, SelectedTile.GetActions());
         }
         else
         {

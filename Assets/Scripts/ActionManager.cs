@@ -34,51 +34,27 @@ public class ActionManager : MonoBehaviour
     public GameObject actionItemPrefab;
     private RectTransform ParentPanel;
 
-    // Tenemos la referencia de todos los posibles action items, esto igual no es muy prolijo
-    private List<ActionItem> actionItems;
-    private Dictionary<int, ActionItem> actionItemsDictionary;
-
     void Start()
     {
         ParentPanel = GameObject.FindWithTag("Panel").GetComponent<RectTransform>();
-        actionItems = new List<ActionItem>();
-        actionItemsDictionary = new Dictionary<int, ActionItem>();
-
-        // Todas las acciones del juego deben definirse en esta lista
-        actionItems.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 50));
-        actionItems.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
-        actionItems.Add(new ActionItem(2, "Fire", "ActionFire", 0));
-        actionItems.Add(new ActionItem(3, "Deforest", "ActionDeforest", 0));
-        actionItems.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
-        actionItems.Add(new ActionItem(5, "Mitigate", "ActionMitigate", 0));
-        actionItems.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", 10));
-
-        foreach (ActionItem item in actionItems)
-        {
-            actionItemsDictionary.Add(item.id, item);
-        }
     }
 
-    internal void InstantiateActions(List<Actions> actions)
+    internal void InstantiateActions(Tile tile, List<ActionItem> actions)
     {
         ClearActionItems();
 
-        foreach (Actions action in actions)
+        foreach (ActionItem action in actions)
         {
-            ActionItem actionItem;
-            if (actionItemsDictionary.TryGetValue((int)action, out actionItem))
-            {
-                GameObject actionItemButton = (GameObject)Instantiate(actionItemPrefab);
-                actionItemButton.transform.SetParent(ParentPanel, false);
-                actionItemButton.transform.localScale = new Vector3(1, 1, 1);
-                Button tempButton = actionItemButton.GetComponent<Button>();
-                ActionProperties actionProperties = actionItemButton.GetComponent<ActionProperties>();
+            GameObject actionItemButton = (GameObject)Instantiate(actionItemPrefab);
+            actionItemButton.transform.SetParent(ParentPanel, false);
+            actionItemButton.transform.localScale = new Vector3(1, 1, 1);
+            Button tempButton = actionItemButton.GetComponent<Button>();
+            ActionProperties actionProperties = actionItemButton.GetComponent<ActionProperties>();
 
-                actionProperties.actionId = (int)action;
-                actionProperties.actionCost = actionItem.cost;
-                actionItemButton.GetComponentInChildren<Text>().text = actionItem.label;
-                tempButton.onClick.AddListener(() => TriggerAction(actionItem.triggerAction));
-            }
+            actionProperties.actionId = action.id;
+            actionProperties.actionCost = action.cost;
+            actionItemButton.GetComponentInChildren<Text>().text = action.label + "($ " + actionProperties.actionCost + ")";
+            tempButton.onClick.AddListener(() => TriggerAction(action.triggerAction));
         }
     }
 

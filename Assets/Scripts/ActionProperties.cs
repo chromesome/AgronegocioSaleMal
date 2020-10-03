@@ -15,8 +15,9 @@ public class ActionProperties : MonoBehaviour
         // Si este código fuese medicina me costaría la matrícula.
         switch (actionId)
         {
-            case 0:
-            case 1:
+            case 0: // Build farm
+            case 1: // Build factory
+            case 6: // Upgrade
                 bool isInteractable = this.GetComponent<Button>().interactable;
                 moneyRef = GameManager.instance.money;
                 if (moneyRef < actionCost && isInteractable == true)

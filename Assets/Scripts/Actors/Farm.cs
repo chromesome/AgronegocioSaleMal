@@ -6,9 +6,14 @@ public class Farm : Actor, IMakeMoney
 {
     public int level;
     public List<Sprite> farmStateSprites;
+    GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
+    }
     public void MakeMoney()
     {
-        GameManager gameManager = GameManager.instance;
         gameManager.money += 1; // TODO: Revisar fórmula
         gameManager.moneyText.text = gameManager.money.ToString();
     }
@@ -16,18 +21,23 @@ public class Farm : Actor, IMakeMoney
     public override void SetupActions()
     {
         base.SetupActions();
-        actions.Add(Actions.MakeMoney);
-        actions.Add(Actions.Upgrade);
+        actions.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
+        if (level < 5)
+        {
+            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", 10));
+        }
     }
 
     public void Upgradeable()
     {
-        Debug.Log("Upgradeando granja");
         // Cambiar tile
         if (level < 5)
         {
-            level++;
             this.GetComponent<SpriteRenderer>().sprite = farmStateSprites[level];
+            gameManager.money -= 10;
+            gameManager.moneyText.text = gameManager.money.ToString();
+            level++;
+            SetupActions();
         }
     }
 }
