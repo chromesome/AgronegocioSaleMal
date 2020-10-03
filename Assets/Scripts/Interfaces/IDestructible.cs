@@ -1,6 +1,6 @@
 ﻿public interface IDestructible
 {
-    int GetMaxHealth();
-    int GetCurrentHealth();
-    int ReceiveDamage();
+    float GetMaxHealth();
+    float GetCurrentHealth();
+    float ReceiveDamage(float damage);
 }

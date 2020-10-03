@@ -1,26 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire : Actor, IHarmful, IDestructible
 {
-    public int GetCurrentHealth()
+    float health = 100f;
+    [SerializeField] float minHealth = 50f;
+    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float selfDamage = 5f; // Damage per second done to self
+    [SerializeField] float maxDamage = 10f;  // Damage per second
+
+    private void Awake()
     {
-        throw new System.NotImplementedException();
+        health = Random.Range(minHealth, maxHealth);
     }
 
-    public int GetMaxHealth()
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        InvokeRepeating("MakeDamage", 0.0f, 1.0f);
+        InvokeRepeating("Spread", 5.0f, 5.0f);
     }
 
-    public int ReceiveDamage()
+    public override void SetupActions()
     {
-        throw new System.NotImplementedException();
+        actions = new List<Actions>();
+        actions.Add(Actions.Mitigate);
+    }
+
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float ReceiveDamage(float damage)
+    {
+        this.health -= damage;
+        if(health < 1)
+        {
+            Extinguish();
+        }
+
+        return 0;
+    }
+
+    public void Extinguish()
+    {
+        Destroy(this);
     }
 
     public void MakeDamage()
     {
-        throw new System.NotImplementedException();
+        Tile tile = this.GetComponentInParent<Tile>();
+        float damage = Mathf.Clamp(maxDamage * health / maxHealth, 1, maxDamage);
+        tile.ReceiveDamage(damage);
+        foreach (Tile neighbour in tile.neighbours)
+        {
+            neighbour.ReceiveDamage(Mathf.Clamp(damage * 0.5f, 1, maxDamage));
+        }
+    }
+
+    public void Spread()
+    {
+        Tile tile = this.GetComponentInParent<Tile>();
+        foreach (Tile neighbour in tile.neighbours)
+        {
+            neighbour.TrySetFire();
+        }
     }
 }

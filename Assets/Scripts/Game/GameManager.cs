@@ -150,7 +150,11 @@ public class GameManager : MonoBehaviour
 
     private void ActionFire()
     {
-        Debug.Log("Fuego!");
+        if(!SelectedTile.IsOnFire())
+        {
+            ActorFactory actorFactory = this.GetComponent<ActorFactory>();
+            SelectedTile.Fire = actorFactory.CreateNewActor(3) as Fire;
+        }
     }
 
     private void ActionDeforest()

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IDestructible
 {
     public int level;
-    public double resistance;
+    public float resistance;
     Actor actor;
+    Fire fire;
 
     List<Actions> tileActions;
 
@@ -22,7 +23,20 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public List<Tile> neighbors;
+    public Fire Fire
+    {
+        get => fire;
+
+        set
+        {
+
+            fire = value;
+            fire.transform.parent = this.transform;
+            fire.transform.position = spawnPoint.transform.position;
+        }
+    }
+
+    public List<Tile> neighbours;
     public Transform spawnPoint;
 
     [SerializeField] bool selectable = true;
@@ -69,7 +83,7 @@ public class Tile : MonoBehaviour
         Debug.Log("OnMouseDown " + this.name);
         Debug.Log("Actor " + Actor);
         Debug.Log("neighbors------");
-        foreach (Tile item in neighbors)
+        foreach (Tile item in neighbours)
         {
             Debug.Log(item.name);
         }
@@ -97,7 +111,7 @@ public class Tile : MonoBehaviour
         tileDetails += "Tile selected: " + this.name;
         tileDetails += "\nActor " + Actor;
         tileDetails += "\nneighbors------";
-        foreach (Tile item in neighbors)
+        foreach (Tile item in neighbours)
         {
             tileDetails += "\n" + item.name;
         }
@@ -107,7 +121,11 @@ public class Tile : MonoBehaviour
 
     internal List<Actions> GetActions()
     {
-        if (Actor != null)
+        if(Fire != null)
+        {
+            return Fire.GetActions();
+        }
+        else if (Actor != null)
         {
             return Actor.GetActions();
         }
@@ -115,5 +133,61 @@ public class Tile : MonoBehaviour
         {
             return tileActions;
         }
+    }
+
+    public float GetMaxHealth()
+    {
+        throw new NotImplementedException();
+    }
+
+    public float GetCurrentHealth()
+    {
+        return resistance;
+    }
+
+    public float ReceiveDamage(float damage)
+    {
+        Debug.Log(this.name + " received damage = " + damage);
+        return 0;
+    }
+
+    public bool IsOnFire()
+    {
+        return this.fire != null ? true : false;
+    }
+
+    public void TrySetFire()
+    {
+        //Quien instancia el fuego?
+        Debug.Log("Try to set fire " + this.name);
+        //bool setFire = true;
+        
+        //if(!forceFire)
+        //{
+        //    float fireChance = resistance + level - RiskModifier();
+        //    float rndNumber = UnityEngine.Random.Range(0, 99);
+
+        //    setFire = fireChance < rndNumber ? true : false;
+        //}
+
+        //if(setFire)
+        //{
+        //    fire = 
+        //}
+    }
+
+    private float RiskModifier()
+    {
+        float riskModifier = 0f;
+
+        foreach (Tile tile in neighbours)
+        {
+            if (tile.IsOnFire())
+            {
+                riskModifier += 1f;
+            }
+        }
+
+        return riskModifier;
     }
 }
