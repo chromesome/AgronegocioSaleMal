@@ -8,29 +8,27 @@ public class JsonReader : MonoBehaviour
 {
     public TextAsset jsonFile;
 
-    private void Start()
+    public MapInfo GetMapinfoFromJSON<MapInfo>(string jsonFileText)
     {
-        //JsonUtility.FromJson<Ground>(jsonFile.text);
-        Ground ground = JsonConvert.DeserializeObject<Ground>(jsonFile.text);
-
-        Debug.Log("ground size " + ground.tileMap != null ? "success" : "fail");
+        return JsonConvert.DeserializeObject<MapInfo>(jsonFileText);
     }
 
 }
 
 
-public class Ground
+public class MapInfo
 {
-    public List<GroundRow> tileMap;
+    public int level;
+    public List<MapRow> tileMap;
 }
 
-public class GroundRow
+public class MapRow
 {
     public int row;
-    public List<GroundTile> tiles;
+    public List<MapTile> tiles;
 }
 
-public class GroundTile
+public class MapTile
 {
     public int tileType;
     public double tileResist;
