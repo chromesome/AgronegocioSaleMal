@@ -11,6 +11,8 @@ public class Fire : Actor, IHarmful, IDestructible
     [SerializeField] float maxDamage = 10f;  // Damage per second
     [SerializeField] float mitigateDamage = 10f;
     [SerializeField] int mitigateCost = 10;
+    [SerializeField] float secondsDamage;
+    [SerializeField] float secondsSpread;
 
     [SerializeField] Fire offspring;
 
@@ -22,8 +24,8 @@ public class Fire : Actor, IHarmful, IDestructible
     private void Start()
     {
         SetupActions();
-        InvokeRepeating("MakeDamage", 0.0f, 1.0f);
-        InvokeRepeating("Spread", 5.0f, 5.0f);
+        InvokeRepeating("MakeDamage", 0.0f, secondsDamage);
+        InvokeRepeating("Spread", secondsSpread, secondsSpread);
     }
 
     public override void SetupActions()

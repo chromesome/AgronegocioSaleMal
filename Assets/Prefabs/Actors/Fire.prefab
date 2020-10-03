@@ -98,11 +98,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   resistance: 0
-  actions: 
   minHealth: 50
   maxHealth: 100
   selfDamage: 5
   maxDamage: 10
+  mitigateDamage: 10
+  mitigateCost: 10
+  secondsDamage: 1
+  secondsSpread: 5
   offspring: {fileID: 5539818275415407662}
 --- !u!95 &7163288009024565264
 Animator:

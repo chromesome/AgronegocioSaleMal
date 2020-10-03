@@ -100,11 +100,14 @@ public class Tile : MonoBehaviour, IDestructible
         }
         #endregion
 
-        if (selectable)
+        if(this != GameManager.instance.SelectedTile)
         {
-            selected = true;
-            sprTile.color = Color.red;
-            GameManager.instance.SelectedTile = this;
+            if (selectable)
+            {
+                selected = true;
+                sprTile.color = Color.red;
+                GameManager.instance.SelectedTile = this;
+            }
         }
     }
 
