@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Factory : Actor, IMakeMoney
 {
-
+    public int maxUpgradeLevel;
     public int level;
     public int multiplier;
     public List<Sprite> factoryStateSprites;
@@ -12,13 +12,14 @@ public class Factory : Actor, IMakeMoney
     public void Start()
     {
         level = 0;
+        maxUpgradeLevel = 6;
         multiplier = 20;
         gameManager = GameManager.instance;
         InvokeRepeating("MakeMoney", 1f, 1f);
     }
     public void MakeMoney()
     {
-        gameManager.money += 1; // TODO: Revisar fórmula
+        gameManager.money += 2 * (level+1);
         gameManager.moneyText.text = gameManager.money.ToString();
     }
 
@@ -26,7 +27,7 @@ public class Factory : Actor, IMakeMoney
     {
  
         // Cambiar tile
-        if (level < 6)
+        if (level < maxUpgradeLevel)
         {
             this.GetComponent<SpriteRenderer>().sprite = factoryStateSprites[level];
             gameManager.money -= level * multiplier;
@@ -40,9 +41,9 @@ public class Factory : Actor, IMakeMoney
     public override void SetupActions()
     {
         base.SetupActions();
-        if (level < 6)
+        if (level < maxUpgradeLevel)
         {
-            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", (level+1)*20));
+            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", (level+1)* multiplier));
         }
     }
 }

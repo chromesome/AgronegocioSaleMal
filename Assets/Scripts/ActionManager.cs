@@ -15,9 +15,7 @@ public class ActionItem
     public int cost;
 
     public delegate void TriggerAction();
-    //public TriggerAction triggerAction;
     public string triggerAction;
-    //public ActionItem(int n_id, string n_label, TriggerAction f_triggerAction)
 
     public ActionItem(int n_id, string n_label, string f_triggerAction, int n_cost)
     {
@@ -34,9 +32,29 @@ public class ActionManager : MonoBehaviour
     public GameObject actionItemPrefab;
     private RectTransform ParentPanel;
 
+    public List<ActionItem> actionItems;
+    public Dictionary<int, ActionItem> actionItemsDictionary;
+
     void Start()
     {
         ParentPanel = GameObject.FindWithTag("Panel").GetComponent<RectTransform>();
+
+        actionItems = new List<ActionItem>();
+        actionItemsDictionary = new Dictionary<int, ActionItem>();
+
+        // Podríamos usar esta lista diccionario para invocar actionitems de acá, en vez de instanciar nuevos por doquier.
+        actionItems.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 60));
+        actionItems.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
+        actionItems.Add(new ActionItem(2, "Fire", "ActionFire", 0));
+        actionItems.Add(new ActionItem(3, "Deforest", "ActionDeforest", 0));
+        actionItems.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
+        actionItems.Add(new ActionItem(5, "Mitigate", "ActionMitigate", 0));
+        actionItems.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", 10));
+
+        foreach (ActionItem item in actionItems)
+        {
+            actionItemsDictionary.Add(item.id, item);
+        }
     }
 
     internal void InstantiateActions(Tile tile, List<ActionItem> actions)
@@ -70,5 +88,6 @@ public class ActionManager : MonoBehaviour
     {
         // Hacemos esto aca para limpiar los action items.. hay que ver si es la mejor forma de resolverlo
         GameManager.instance.Invoke(triggerAction, 0f);
+        // Averiguar como pasar parametros o si es necesario usar Coroutine
     }
 }

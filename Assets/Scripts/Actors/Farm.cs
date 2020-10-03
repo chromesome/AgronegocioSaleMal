@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Farm : Actor, IMakeMoney
 {
+    public int maxUpgradeLevel;
     public int level;
+    public int multiplier;
+    public int upgradeCost;
     public List<Sprite> farmStateSprites;
     GameManager gameManager;
 
     void Start()
     {
         gameManager = GameManager.instance;
+        maxUpgradeLevel = 5;
+        multiplier = 1;
+        upgradeCost = 10;
     }
     public void MakeMoney()
     {
-        gameManager.money += 1; // TODO: Revisar fórmula
+        gameManager.money += multiplier * (level+1); // Agregamos 1 porque el level arranca en 0
         gameManager.moneyText.text = gameManager.money.ToString();
     }
 
@@ -22,16 +28,16 @@ public class Farm : Actor, IMakeMoney
     {
         base.SetupActions();
         actions.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
-        if (level < 5)
+        if (level < maxUpgradeLevel)
         {
-            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", 10));
+            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", upgradeCost));
         }
     }
 
     public void Upgradeable()
     {
         // Cambiar tile
-        if (level < 5)
+        if (level < maxUpgradeLevel)
         {
             this.GetComponent<SpriteRenderer>().sprite = farmStateSprites[level];
             gameManager.money -= 10;
