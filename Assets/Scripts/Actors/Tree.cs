@@ -9,8 +9,8 @@ public class Tree : Actor, IDestructible
 
     public override void SetupActions()
     {
-        actions = new List<Actions>();
-        actions.Add(Actions.Fire);
+        actions = new List<ActionItem>();
+        actions.Add(new ActionItem(2, "Fire", "ActionFire", 0));
     }
 
     public float GetCurrentHealth()

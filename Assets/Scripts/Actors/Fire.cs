@@ -9,6 +9,8 @@ public class Fire : Actor, IHarmful, IDestructible
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float selfDamage = 5f; // Damage per second done to self
     [SerializeField] float maxDamage = 10f;  // Damage per second
+    [SerializeField] float mitigateDamage = 10f;
+    [SerializeField] int mitigateCost = 10;
 
     [SerializeField] Fire offspring;
 
@@ -19,14 +21,15 @@ public class Fire : Actor, IHarmful, IDestructible
 
     private void Start()
     {
+        SetupActions();
         InvokeRepeating("MakeDamage", 0.0f, 1.0f);
         InvokeRepeating("Spread", 5.0f, 5.0f);
     }
 
     public override void SetupActions()
     {
-        actions = new List<Actions>();
-        actions.Add(Actions.Mitigate);
+        actions = new List<ActionItem>();
+        actions.Add(new ActionItem(5, "Mitigate", "ActionMitigate", mitigateCost));
     }
 
     public float GetCurrentHealth()

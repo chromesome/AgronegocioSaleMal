@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     private void OnGUI()
     {
         if(tileSelected != null)
-            GUI.TextArea(new Rect(10, 10, 100, 150), tileSelected.GetDetails());
+            GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
     }
 
     public void OnTileUpdated()
