@@ -20,7 +20,10 @@ public class Tile : MonoBehaviour, IDestructible
         set
         {
             actor = value;
-            actor.transform.position = spawnPoint.transform.position;
+            if(actor != null)
+            {
+                actor.transform.position = spawnPoint.transform.position;
+            }
         }
     }
 
@@ -31,8 +34,11 @@ public class Tile : MonoBehaviour, IDestructible
         set
         {
             fire = value;
-            fire.transform.parent = this.transform;
-            fire.transform.position = spawnPoint.transform.position;
+            if(fire != null)
+            {
+                fire.transform.parent = this.transform;
+                fire.transform.position = spawnPoint.transform.position;
+            }
         }
     }
 

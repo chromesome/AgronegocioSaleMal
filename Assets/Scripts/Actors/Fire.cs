@@ -19,11 +19,11 @@ public class Fire : Actor, IHarmful, IDestructible
     private void Awake()
     {
         health = UnityEngine.Random.Range(minHealth, maxHealth);
+        SetupActions();
     }
 
     private void Start()
     {
-        SetupActions();
         InvokeRepeating("MakeDamage", 0.0f, secondsDamage);
         InvokeRepeating("Spread", secondsSpread, secondsSpread);
     }
@@ -67,6 +67,8 @@ public class Fire : Actor, IHarmful, IDestructible
         this.health -= damage;
         if (health <= 0)
         {
+            Tile tile = this.GetComponentInParent<Tile>();
+            tile.Fire = null;
             Destroy(gameObject);
         }
         else

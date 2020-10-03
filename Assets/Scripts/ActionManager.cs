@@ -57,7 +57,7 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    internal void InstantiateActions(Tile tile, List<ActionItem> actions)
+    internal void InstantiateActions(List<ActionItem> actions)
     {
         ClearActionItems();
 

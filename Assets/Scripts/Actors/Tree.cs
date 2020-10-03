@@ -42,6 +42,8 @@ public class Tree : Actor, IDestructible
         if(health <= 0)
         {
             damageRemain = Mathf.Abs(health - damage);
+            Tile tile = this.GetComponentInParent<Tile>();
+            tile.Actor = null;
             Destroy(gameObject);
         }
         else

@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     private void DisplayActions()
     {
         List<ActionItem> actions = SelectedTile.GetActions();
-        actionManager.InstantiateActions(SelectedTile, actions);
+        actionManager.InstantiateActions(actions);
     }
 
     private void ActionBuild(int actorId)
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         Actor actor = actorFactory.CreateNewActor(actorId); // 0 pertenece a Factory, hacer un enum con esto o una const
         SelectedTile.Actor = actor;
         SelectedTile.SetupActions();
-        actionManager.InstantiateActions(SelectedTile, SelectedTile.GetActions());
+        actionManager.InstantiateActions(SelectedTile.GetActions());
     }
 
     private void ActionBuildFarm()
@@ -169,6 +169,8 @@ public class GameManager : MonoBehaviour
         {
             ActorFactory actorFactory = this.GetComponent<ActorFactory>();
             SelectedTile.Fire = actorFactory.CreateNewActor(3) as Fire;
+            SelectedTile.SetupActions();
+            actionManager.InstantiateActions(SelectedTile.GetActions());
         }
     }
 
@@ -178,6 +180,8 @@ public class GameManager : MonoBehaviour
         if (tree != null)
         {
             tree.Chop();
+            SelectedTile.SetupActions();
+            actionManager.InstantiateActions(SelectedTile.GetActions());
         }
     }
 
@@ -200,6 +204,11 @@ public class GameManager : MonoBehaviour
         if(fire != null)
         {
             fire.Mitigate();
+            if(SelectedTile.Fire == null)
+            {
+                SelectedTile.SetupActions();
+                actionManager.InstantiateActions(SelectedTile.GetActions());
+            }
         }
     }
 
@@ -209,7 +218,7 @@ public class GameManager : MonoBehaviour
         if (makeMoneyActor != null)
         {
             makeMoneyActor.Upgradeable();
-            actionManager.InstantiateActions(SelectedTile, SelectedTile.GetActions());
+            actionManager.InstantiateActions(SelectedTile.GetActions());
         }
         else
         {
