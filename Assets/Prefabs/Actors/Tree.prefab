@@ -98,6 +98,8 @@ MonoBehaviour:
   id: 2
   resistance: 0
   maxHealth: 100
+  chopDamage: 1
+  chopCost: 10
   factoryStateSprites:
   - {fileID: 21300000, guid: de5ecd1eb204e224ea9d530a8ca3c0ad, type: 3}
   - {fileID: 21300000, guid: 814cb7c1521af614099d6f505004d566, type: 3}

@@ -63,7 +63,7 @@ public class Fire : Actor, IHarmful, IDestructible
     public void Extinguish(float damage)
     {
         this.health -= damage;
-        if (health < 1)
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
@@ -99,5 +99,13 @@ public class Fire : Actor, IHarmful, IDestructible
                 neighbour.TrySetFire(offspring);
             }
         }
+    }
+
+    public void Mitigate()
+    {
+        GameManager gameManager = GameManager.instance;
+        gameManager.money -= mitigateCost;
+        gameManager.moneyText.text = gameManager.money.ToString();
+        ReceiveDamage(mitigateDamage);
     }
 }

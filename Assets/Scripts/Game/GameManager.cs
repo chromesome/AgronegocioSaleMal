@@ -174,7 +174,11 @@ public class GameManager : MonoBehaviour
 
     private void ActionDeforest()
     {
-        Debug.Log("Talando");
+        Tree tree = SelectedTile.Actor as Tree;
+        if (tree != null)
+        {
+            tree.Chop();
+        }
     }
 
     private void ActionMakeMoney()
@@ -192,7 +196,11 @@ public class GameManager : MonoBehaviour
 
     private void ActionMitigate()
     {
-        Debug.Log("Apagalo");
+        Fire fire = SelectedTile.Fire;
+        if(fire != null)
+        {
+            fire.Mitigate();
+        }
     }
 
     private void ActionUpgrade()
