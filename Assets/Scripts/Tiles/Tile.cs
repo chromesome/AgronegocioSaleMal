@@ -189,18 +189,22 @@ public class Tile : MonoBehaviour, IDestructible
     public void TrySetFire(Fire fire)
     {
         Debug.Log("Try to set fire " + this.name);
-        if(actor == null)
+        // Si es agua no hagas nada
+        if(level < 9)
         {
-            bool setFire = true;
-
-            float fireChance = resistance + level - RiskModifier();
-            float rndNumber = UnityEngine.Random.Range(0, 99);
-
-            setFire = fireChance < rndNumber ? true : false;
-
-            if (setFire)
+            if(actor == null)
             {
-                this.Fire = Instantiate(fire);
+                bool setFire = true;
+
+                float fireChance = resistance + level - RiskModifier();
+                float rndNumber = UnityEngine.Random.Range(0, 99);
+
+                setFire = fireChance < rndNumber ? true : false;
+
+                if (setFire)
+                {
+                    this.Fire = Instantiate(fire);
+                }
             }
         }
     }
