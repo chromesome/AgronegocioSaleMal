@@ -30,7 +30,7 @@ public class Tree : Actor, IDestructible
         if(health < 0)
         {
             damageRemain = Mathf.Abs(health - damage);
-            Destroy(this);  // TODO: MATAR AL ACTOR
+            Destroy(gameObject);
         }
         return damageRemain;
     }

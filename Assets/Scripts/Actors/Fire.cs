@@ -54,8 +54,7 @@ public class Fire : Actor, IHarmful, IDestructible
 
     public void Extinguish()
     {
-        // TODO: Quien o como matamos al actor?
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     public void MakeDamage()
