@@ -175,24 +175,23 @@ public class Tile : MonoBehaviour, IDestructible
         return this.fire != null ? true : false;
     }
 
-    public void TrySetFire()
+    public void TrySetFire(Fire fire)
     {
-        //TODO: Quien instancia el fuego?
         Debug.Log("Try to set fire " + this.name);
-        //bool setFire = true;
-        
-        //if(!forceFire)
-        //{
-        //    float fireChance = resistance + level - RiskModifier();
-        //    float rndNumber = UnityEngine.Random.Range(0, 99);
+        if(actor == null)
+        {
+            bool setFire = true;
 
-        //    setFire = fireChance < rndNumber ? true : false;
-        //}
+            float fireChance = resistance + level - RiskModifier();
+            float rndNumber = UnityEngine.Random.Range(0, 99);
 
-        //if(setFire)
-        //{
-        //    fire = 
-        //}
+            setFire = fireChance < rndNumber ? true : false;
+
+            if (setFire)
+            {
+                this.Fire = Instantiate(fire);
+            }
+        }
     }
 
     private float RiskModifier()

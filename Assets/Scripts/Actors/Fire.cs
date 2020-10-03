@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Fire : Actor, IHarmful, IDestructible
@@ -9,9 +10,11 @@ public class Fire : Actor, IHarmful, IDestructible
     [SerializeField] float selfDamage = 5f; // Damage per second done to self
     [SerializeField] float maxDamage = 10f;  // Damage per second
 
+    [SerializeField] Fire offspring;
+
     private void Awake()
     {
-        health = Random.Range(minHealth, maxHealth);
+        health = UnityEngine.Random.Range(minHealth, maxHealth);
     }
 
     private void Start()
@@ -43,18 +46,28 @@ public class Fire : Actor, IHarmful, IDestructible
 
     public float ReceiveDamage(float damage)
     {
-        this.health -= damage;
-        if(health < 1)
-        {
-            Extinguish();
-        }
+        Extinguish(damage);
 
         return 0;
     }
 
-    public void Extinguish()
+    private void ReduceSize()
     {
-        Destroy(gameObject);
+        float newScale = Mathf.Clamp(health / maxHealth, 0.2f, 1f);
+        transform.localScale = new Vector3(newScale, newScale, 1);
+    }
+
+    public void Extinguish(float damage)
+    {
+        this.health -= damage;
+        if (health < 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            ReduceSize();
+        }
     }
 
     public void MakeDamage()
@@ -78,8 +91,10 @@ public class Fire : Actor, IHarmful, IDestructible
         Tile tile = this.GetComponentInParent<Tile>();
         foreach (Tile neighbour in tile.neighbours)
         {
-            neighbour.TrySetFire();
-            //TODO: Quien instancia el fuego?
+            if(!neighbour.IsOnFire())
+            {
+                neighbour.TrySetFire(offspring);
+            }
         }
     }
 }

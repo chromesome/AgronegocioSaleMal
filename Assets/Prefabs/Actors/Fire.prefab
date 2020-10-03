@@ -103,6 +103,7 @@ MonoBehaviour:
   maxHealth: 100
   selfDamage: 5
   maxDamage: 10
+  offspring: {fileID: 5539818275415407662}
 --- !u!95 &7163288009024565264
 Animator:
   serializedVersion: 3
