@@ -13,12 +13,20 @@ public class ActionProperties : MonoBehaviour
     [SerializeField]
     public List<Sprite> actionButtonSprites;
 
+    [SerializeField]
+    public List<AudioClip> buttonAudioClips;
+    public AudioSource audioSource;
+
     private int moneyRef = 0;
 
     void Start()
     {
         actionButtonImage = GetComponent<Image>();
         actionButtonImage.sprite = actionButtonSprites[actionId];
+        audioSource.clip = buttonAudioClips[actionId];
+
+        Button b = this.GetComponent<Button>();
+        b.onClick.AddListener(delegate () { AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0,0,-8)); });
     }
 
     void Update()
