@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int level;
     public int money;
     public int kills;
+    public float timeLimit = 90f;
 
     public BoardView boardView;
     public JsonReader jsonReader;
@@ -25,7 +26,11 @@ public class GameManager : MonoBehaviour
     private List<TextAsset> mapTextAssets;
     private Dictionary<int, MapInfo> mapDictionary;
 
+    float currentTime;
+    bool timeStarted = false;
+
     public Text moneyText;
+    public Text timeText;
 
     private Tile tileSelected;
     public Tile SelectedTile
@@ -67,10 +72,53 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
+        timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<UnityEngine.UI.Text>();
 
         // Empezamos siempre en level 0
         level = 0;
         SetupMap();
+
+        SetTimerCountdown();
+    }
+
+    private void SetTimerCountdown()
+    {
+        currentTime = timeLimit;
+        timeStarted = true;
+    }
+
+    private void Update()
+    {
+        if(timeStarted)
+        {
+            currentTime -= Time.deltaTime;
+            if(currentTime < 0)
+            {
+                WinLevel();
+            }
+        }
+    }
+
+    private void OnGUI()
+    {
+        RefreshTimerText();
+
+        // Debug GUI
+        //if (tileSelected != null)
+        //    GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
+    }
+
+    private void RefreshTimerText()
+    {
+        if (timeText != null)
+        {
+            float minutes = Mathf.Floor(currentTime / 60);
+            float seconds = Mathf.RoundToInt(currentTime % 60);
+            string strMinutes = minutes > 9 ? minutes.ToString() : "0" + minutes.ToString();
+            string strSeconds = seconds > 9 ? seconds.ToString() : "0" + seconds.ToString();
+
+            timeText.text = strMinutes + ":" + strSeconds;
+        }
     }
 
     // Llamamos a este método cada vez que queremos inicializar un nivel
@@ -80,11 +128,11 @@ public class GameManager : MonoBehaviour
         // HACK
         if (moneyText == null)
             moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
+
+        if (timeText == null)
+            timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<UnityEngine.UI.Text>();
+
         MapInfo mapInfo;
-
-        if (moneyText == null)
-            moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
-
         if (mapDictionary.TryGetValue(level, out mapInfo))
         {
             boardView.SetupBoard(mapInfo);
@@ -108,6 +156,8 @@ public class GameManager : MonoBehaviour
         if (level < mapDictionary.Count)
         {
             SceneManager.LoadScene(IN_GAME);
+            timeStarted = false;
+            SetTimerCountdown();
         }
         else 
         {
@@ -126,14 +176,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Felicitaciones kpo, hiciste concha todo, ahora fijate si te podes comer lo' dolare (?");
         SceneManager.LoadScene(ENDGAME);
     }
-
-
-    // Debug GUI
-    //private void OnGUI()
-    //{
-    //    if(tileSelected != null)
-    //        GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
-    //}
 
     public void OnTileUpdated()
     {

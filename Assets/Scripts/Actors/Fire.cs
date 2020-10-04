@@ -9,7 +9,8 @@ public class Fire : Actor, IHarmful, IDestructible
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float selfDamage = 5f; // Damage per second done to self
     [SerializeField] float maxDamage = 10f;  // Damage per second
-    [SerializeField] float mitigateDamage = 10f;
+    [SerializeField] float maxMitigateDamage = 20f;
+    [SerializeField] float minMitigateDamage = 10f;
     [SerializeField] int mitigateCost = 10;
     [SerializeField] float secondsDamage;
     [SerializeField] float secondsSpread;
@@ -110,8 +111,16 @@ public class Fire : Actor, IHarmful, IDestructible
         GameManager gameManager = GameManager.instance;
         gameManager.money -= mitigateCost;
         gameManager.moneyText.text = gameManager.money.ToString();
-        ReceiveDamage(mitigateDamage);
+
+        ReceiveDamage(GetMitigateDamage());
     }
+
+    private float GetMitigateDamage()
+    {
+        float rndDamage = UnityEngine.Random.Range(minMitigateDamage, maxMitigateDamage);
+        return rndDamage;
+    }
+
     protected override void SortingLayer()
     {
         SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
