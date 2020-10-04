@@ -125,11 +125,11 @@ public class GameManager : MonoBehaviour
 
 
     // Debug GUI
-    private void OnGUI()
-    {
-        if(tileSelected != null)
-            GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
-    }
+    //private void OnGUI()
+    //{
+    //    if(tileSelected != null)
+    //        GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
+    //}
 
     public void OnTileUpdated()
     {
