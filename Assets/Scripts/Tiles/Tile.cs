@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IDestructible
+public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public int level;
     public float resistance = 100f;
@@ -107,45 +107,6 @@ public class Tile : MonoBehaviour, IDestructible
     private void Start()
     {
         sprTile = this.GetComponent<SpriteRenderer>();
-    }
-
-    private void OnMouseEnter()
-    {
-        if(selectable && !selected)
-        {
-            sprTile.color = Color.gray;
-        }
-    }
-
-    private void OnMouseExit()
-    {
-        if(!selected)
-        {
-            sprTile.color = Color.white;
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        #region DEBUG
-        Debug.Log("OnMouseDown " + this.name);
-        Debug.Log("Actor " + Actor);
-        Debug.Log("neighbors------");
-        foreach (Tile item in neighbours)
-        {
-            Debug.Log(item.name);
-        }
-        #endregion
-
-        if(this != GameManager.instance.SelectedTile)
-        {
-            if (selectable)
-            {
-                selected = true;
-                sprTile.color = Color.red;
-                GameManager.instance.SelectedTile = this;
-            }
-        }
     }
 
     internal void Unselect()
@@ -315,6 +276,58 @@ public class Tile : MonoBehaviour, IDestructible
         if (sprRenderer != null)
         {
             sprRenderer.sortingOrder = y == 0 ? y : y + 3;
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (!selected)
+        {
+            sprTile.color = Color.white;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        #region DEBUG
+        Debug.Log("OnMouseDown " + this.name);
+        Debug.Log("Actor " + Actor);
+        Debug.Log("neighbors------");
+        foreach (Tile item in neighbours)
+        {
+            Debug.Log(item.name);
+        }
+        #endregion
+
+        if (this != GameManager.instance.SelectedTile)
+        {
+            if (selectable)
+            {
+                selected = true;
+                sprTile.color = Color.red;
+                GameManager.instance.SelectedTile = this;
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (selectable && !selected)
+        {
+            sprTile.color = Color.gray;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!selected)
+        {
+            sprTile.color = Color.white;
         }
     }
 }
