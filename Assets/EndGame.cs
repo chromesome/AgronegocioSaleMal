@@ -17,18 +17,18 @@ public class EndGame : MonoBehaviour
         iterator = 0;
         kills = GameManager.instance.kills;
         moneyWon = GameManager.instance.money;
-        endText.text = "Felicidades! Tu patrimonio se valúa en $ " + moneyWon.ToString() + " y sólo nos costó la vida del planeta!";
+        endText.text = "¡Felicidades! Tu patrimonio se valúa en $ " + moneyWon.ToString() + " y solo nos costó la vida del planeta.";
     }
     public void TryAgainMsg()
     {
         switch (iterator)
         {
             case 0:
-                endText.text = "Solamente cuando se haya envenenado el último río, cortado el último árbol y matado el último pez, el hombre se dará cuenta que no puede comerse el dinero";
+                endText.text = "Solamente cuando se haya envenenado el último río, cortado el último árbol y matado el último pez, el hombre se dará cuenta de que no puede comerse el dinero";
                 iterator++;
                 break;
             case 1:
-                endText.text = "En la vida real no hay segundas oportunidades, tampoco en este juego. Toma acción antes de que sea demasiado tarde.";
+                endText.text = "En la vida real no hay segundas oportunidades, tampoco en este juego. Hacé algo antes de que sea demasiado tarde.";
                 iterator++;
                 break;
             case 2:
