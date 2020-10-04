@@ -193,9 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Solamente cuando se haya envenenado el \xFAltimo r\xEDo, cortado el \xFAltimo
-    \xE1rbol y matado el \xFAltimo pez, el hombre se dar\xE1 cuenta que no puede
-    comerse el dinero"
+  m_Text: 
 --- !u!222 &316563311
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -312,7 +310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3058c5c7e601b96478a1f8a4b05d9e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kills: 0
+  moneyWon: 0
   endText: {fileID: 316563310}
+  iterator: 0
+  retryButton: {fileID: 1023861649}
 --- !u!4 &1023861651
 Transform:
   m_ObjectHideFlags: 0
