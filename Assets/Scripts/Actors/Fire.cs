@@ -19,11 +19,11 @@ public class Fire : Actor, IHarmful, IDestructible
     private void Awake()
     {
         health = UnityEngine.Random.Range(minHealth, maxHealth);
+        SetupActions();
     }
 
     private void Start()
     {
-        SetupActions();
         InvokeRepeating("MakeDamage", 0.0f, secondsDamage);
         InvokeRepeating("Spread", secondsSpread, secondsSpread);
     }
@@ -67,6 +67,8 @@ public class Fire : Actor, IHarmful, IDestructible
         this.health -= damage;
         if (health <= 0)
         {
+            Tile tile = this.GetComponentInParent<Tile>();
+            tile.Fire = null;
             Destroy(gameObject);
         }
         else
@@ -109,5 +111,13 @@ public class Fire : Actor, IHarmful, IDestructible
         gameManager.money -= mitigateCost;
         gameManager.moneyText.text = gameManager.money.ToString();
         ReceiveDamage(mitigateDamage);
+    }
+    protected override void SortingLayer()
+    {
+        SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
+        if (sprRenderer != null)
+        {
+            sprRenderer.sortingOrder = Y == 0 ? Y + 2 : Y + 5;
+        }
     }
 }
