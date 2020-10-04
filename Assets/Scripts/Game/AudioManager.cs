@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public List<AudioClip> fireAudioClips;
+    public MusicPlayer musicPlayer;
 
     const int FIRE_LEVEL_1 = 1;
     const int FIRE_LEVEL_2 = 3;
@@ -14,7 +15,6 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSource;
     GameObject[] fireObjects;
     int currentFires;
-
 
     void Start()
     {
