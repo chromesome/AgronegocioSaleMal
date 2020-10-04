@@ -15,7 +15,15 @@ public class Tree : Actor, IDestructible
 
     private void Start()
     {
-        
+        Tile tile = GetComponentInParent<Tile>();
+        if(tile != null)
+        {
+            if(tile.level < 8)
+            {
+                health = Mathf.Clamp((tile.level - 3) * 10, 10, maxHealth);
+            }
+        }
+        RefreshSprite();
     }
 
     public override void SetupActions()
