@@ -112,4 +112,12 @@ public class Fire : Actor, IHarmful, IDestructible
         gameManager.moneyText.text = gameManager.money.ToString();
         ReceiveDamage(mitigateDamage);
     }
+    protected override void SortingLayer()
+    {
+        SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
+        if (sprRenderer != null)
+        {
+            sprRenderer.sortingOrder = Y == 0 ? Y + 2 : Y + 5;
+        }
+    }
 }

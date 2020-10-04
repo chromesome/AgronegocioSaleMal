@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
     {
         MapInfo mapInfo;
 
+        if (moneyText == null)
+            moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
+
         if (mapDictionary.TryGetValue(level, out mapInfo))
         {
             boardView.SetupBoard(mapInfo);

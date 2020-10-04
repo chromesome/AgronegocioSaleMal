@@ -12,6 +12,29 @@ public class Tile : MonoBehaviour, IDestructible
     [SerializeField] List<Sprite> tileStateSprites;
     [SerializeField] List<float> spawnPosition;
 
+    int x;
+    int y;
+
+    public int X
+    {
+        get => x;
+        set
+        {
+            x = value;
+            SortingLayer();
+        }
+    }
+
+    public int Y
+    {
+        get => y;
+        set
+        {
+            y = value;
+            SortingLayer();
+        }
+    }
+
     Actor actor;
     Fire fire;
 
@@ -25,7 +48,10 @@ public class Tile : MonoBehaviour, IDestructible
             actor = value;
             if(actor != null)
             {
+                actor.transform.parent = this.transform;
                 actor.transform.position = spawnPoint.transform.position;
+                actor.X = x;
+                actor.Y = y;
             }
         }
     }
@@ -41,6 +67,8 @@ public class Tile : MonoBehaviour, IDestructible
             {
                 fire.transform.parent = this.transform;
                 fire.transform.position = spawnPoint.transform.position;
+                fire.X = x;
+                fire.Y = y;
             }
         }
     }
@@ -171,25 +199,28 @@ public class Tile : MonoBehaviour, IDestructible
     public float ReceiveDamage(float damage)
     {
         Debug.Log(this.name + " received damage = " + damage);
-        Tree tree = Actor as Tree;
-        if(tree != null)
+        if(level < 9)
         {
-            damage = tree.ReceiveDamage(damage);
-        }
-        else if(IsOnFire())
-        {
-            Fire.Consume();
-        }
+            Tree tree = Actor as Tree;
+            if(tree != null)
+            {
+                damage = tree.ReceiveDamage(damage);
+            }
+            else if(IsOnFire())
+            {
+                Fire.Consume();
+            }
 
-        // take remaining damage
-        resistance -= damage;
+            // take remaining damage
+            resistance -= damage;
 
-        if(resistance <= 0)
-        {
-            float remainingDamage = Mathf.Abs(resistance - damage);
-            DemoteTile();
+            if(resistance <= 0)
+            {
+                float remainingDamage = Mathf.Abs(resistance - damage);
+                DemoteTile();
 
-            resistance -= remainingDamage;
+                resistance -= remainingDamage;
+            }
         }
 
         // Tile receives all damage
@@ -210,25 +241,31 @@ public class Tile : MonoBehaviour, IDestructible
             Fire = null;
         }
 
+        if(level < 3)
+        {
+            Destroy(Actor.gameObject);
+            Actor = null;
+        }
+
         ReajustSpawnPoint();
     }
 
     private void ReajustSpawnPoint()
     {
         // Modo cabeza mal
-        Transform spawnTransform = this.spawnPoint.transform;
+        Transform spawnTransform = spawnPoint.transform;
         Vector3 newSpawnPosition = new Vector3(spawnTransform.localPosition.x, spawnPosition[level]);
 
         spawnTransform.localPosition = newSpawnPosition;
 
         if(Actor != null)
         {
-            Actor.transform.position = newSpawnPosition;
+            Actor.transform.localPosition = newSpawnPosition;
         }
 
         if(Fire != null)
         {
-            Fire.transform.position = newSpawnPosition;
+            Fire.transform.localPosition = newSpawnPosition;
         }
     }
 
@@ -243,19 +280,16 @@ public class Tile : MonoBehaviour, IDestructible
         // Si es agua no hagas nada
         if(level < 9)
         {
-            if(Actor == null)
+            bool setFire = true;
+
+            float fireChance = resistance + level - RiskModifier();
+            float rndNumber = UnityEngine.Random.Range(0, 99);
+
+            setFire = fireChance < rndNumber ? true : false;
+
+            if (setFire)
             {
-                bool setFire = true;
-
-                float fireChance = resistance + level - RiskModifier();
-                float rndNumber = UnityEngine.Random.Range(0, 99);
-
-                setFire = fireChance < rndNumber ? true : false;
-
-                if (setFire)
-                {
-                    this.Fire = Instantiate(fire);
-                }
+                this.Fire = Instantiate(fire);
             }
         }
     }
@@ -273,5 +307,14 @@ public class Tile : MonoBehaviour, IDestructible
         }
 
         return riskModifier;
+    }
+
+    private void SortingLayer()
+    {
+        SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
+        if (sprRenderer != null)
+        {
+            sprRenderer.sortingOrder = y == 0 ? y : y + 3;
+        }
     }
 }
