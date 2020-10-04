@@ -76,6 +76,10 @@ public class GameManager : MonoBehaviour
     // Llamamos a este método cada vez que queremos inicializar un nivel
     void SetupMap()
     {
+
+        // HACK
+        if (moneyText == null)
+            moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
         MapInfo mapInfo;
 
         if (moneyText == null)

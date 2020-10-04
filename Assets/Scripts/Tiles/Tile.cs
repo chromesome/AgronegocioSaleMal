@@ -93,12 +93,12 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
         {
             if (level > 2 && level < 6)
             {
-                tileActions.Add(new ActionItem(0, "Build Farm", "ActionBuildFarm", 60));
-                tileActions.Add(new ActionItem(1, "Build Factory", "ActionBuildFactory", 100));
+                tileActions.Add(new ActionItem(0, "Granja", "ActionBuildFarm", 60));
+                tileActions.Add(new ActionItem(1, "Fábrica", "ActionBuildFactory", 100));
             }
             else if (level >= 6)
             {
-                tileActions.Add(new ActionItem(2, "Fire", "ActionFire", 0));
+                tileActions.Add(new ActionItem(2, "Fuego", "ActionFire", 0));
             }
         }
         

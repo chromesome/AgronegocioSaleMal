@@ -52,7 +52,7 @@ public class Factory : Actor, IMakeMoney, IHarmful
         base.SetupActions();
         // if (level < maxUpgradeLevel)     TODO: GDD dice que se upgradea para x100pre
         {
-            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", (level+1)* multiplier));
+            actions.Add(new ActionItem(6, "Mejorar", "ActionUpgrade", (level+1)* multiplier));
         }
     }
 
