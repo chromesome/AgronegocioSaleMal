@@ -11,11 +11,19 @@ public class Tree : Actor, IDestructible
     [SerializeField] float chopDamage = 1f;
     [SerializeField] int chopCost = 10;
 
-    [SerializeField] List<Sprite> factoryStateSprites;
+    [SerializeField] List<Sprite> treeStateSprites;
 
     private void Start()
     {
-        
+        Tile tile = GetComponentInParent<Tile>();
+        if(tile != null)
+        {
+            if(tile.level < 8)
+            {
+                health = Mathf.Clamp((tile.level - 3) * 10, 10, maxHealth);
+            }
+        }
+        RefreshSprite();
     }
 
     public override void SetupActions()
@@ -42,6 +50,8 @@ public class Tree : Actor, IDestructible
         if(health <= 0)
         {
             damageRemain = Mathf.Abs(health - damage);
+            Tile tile = this.GetComponentInParent<Tile>();
+            tile.Actor = null;
             Destroy(gameObject);
         }
         else
@@ -63,7 +73,7 @@ public class Tree : Actor, IDestructible
                 currentTier -= 1;   // 0 base
             }
 
-            this.GetComponent<SpriteRenderer>().sprite = factoryStateSprites[currentTier];
+            this.GetComponent<SpriteRenderer>().sprite = treeStateSprites[currentTier];
         }
     }
 

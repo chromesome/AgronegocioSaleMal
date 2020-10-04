@@ -57,8 +57,11 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    internal void InstantiateActions(Tile tile, List<ActionItem> actions)
+    internal void InstantiateActions(List<ActionItem> actions)
     {
+        if (ParentPanel == null)
+            ParentPanel = GameObject.FindWithTag("Panel").GetComponent<RectTransform>();
+
         ClearActionItems();
 
         foreach (ActionItem action in actions)

@@ -99,7 +99,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 4
   resistance: 0
-  neighbors: []
+  maxResistance: 100
+  tileStateSprites:
+  - {fileID: 21300000, guid: 27d4ce8a344d199418f87b05d02211fd, type: 3}
+  - {fileID: 21300000, guid: cc72d77fc957e2a4f95f7231d514f0e5, type: 3}
+  - {fileID: 21300000, guid: 6761b97fdacbbb0408c2642777c545e2, type: 3}
+  - {fileID: 21300000, guid: 3c978616a9269164d9f73c7537f48865, type: 3}
+  - {fileID: 21300000, guid: f79431b88a1e488418745b223049e3a2, type: 3}
+  - {fileID: 21300000, guid: d9f6e69365e65d049adcf44ce06cb061, type: 3}
+  - {fileID: 21300000, guid: 5bcd2cbb9c89ff94f89acb3eef984037, type: 3}
+  - {fileID: 21300000, guid: 94ad067af383c7049a6a26b85e584236, type: 3}
+  - {fileID: 21300000, guid: 058dbefb4c8bb214e9b3fed7630a0974, type: 3}
+  - {fileID: 21300000, guid: 54180674fb9400a4582c7cf52ddd022f, type: 3}
+  spawnPosition:
+  - 0
+  - 0.05
+  - 0.07
+  - 0.07
+  - 0.15
+  - 0.15
+  - 0.22
+  - 0.3
+  - 0.43
+  - 0.07
+  neighbours: []
   spawnPoint: {fileID: 6008633834209466595}
   selectable: 1
 --- !u!60 &6905991740452545015
