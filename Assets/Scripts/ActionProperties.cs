@@ -17,6 +17,7 @@ public class ActionProperties : MonoBehaviour
 
     void Start()
     {
+        actionButtonImage = GetComponent<Image>();
         actionButtonImage.sprite = actionButtonSprites[actionId];
     }
 

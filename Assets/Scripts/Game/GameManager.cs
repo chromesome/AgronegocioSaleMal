@@ -124,15 +124,18 @@ public class GameManager : MonoBehaviour
     // Llamamos a este método cada vez que queremos inicializar un nivel
     void SetupMap()
     {
+        if (timeText == null)
+            timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<UnityEngine.UI.Text>();
 
         // HACK
         if (moneyText == null)
             moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
-
-        if (timeText == null)
-            timeText = GameObject.FindGameObjectWithTag("TimeText").GetComponent<UnityEngine.UI.Text>();
+            
+        // OTRO HACK
+        gameObject.GetComponent<AudioManager>().CheckForNewFires();
 
         MapInfo mapInfo;
+
         if (mapDictionary.TryGetValue(level, out mapInfo))
         {
             boardView.SetupBoard(mapInfo);
@@ -220,6 +223,7 @@ public class GameManager : MonoBehaviour
             SelectedTile.Fire = actorFactory.CreateNewActor(3) as Fire;
             SelectedTile.SetupActions();
             actionManager.InstantiateActions(SelectedTile.GetActions());
+            GetComponent<AudioManager>().CheckForNewFires();
         }
     }
 
@@ -253,7 +257,7 @@ public class GameManager : MonoBehaviour
         if(fire != null)
         {
             fire.Mitigate();
-            if(SelectedTile.Fire == null)
+            if (SelectedTile.Fire == null)
             {
                 SelectedTile.SetupActions();
                 actionManager.InstantiateActions(SelectedTile.GetActions());
