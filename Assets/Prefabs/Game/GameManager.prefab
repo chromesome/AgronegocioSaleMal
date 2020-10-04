@@ -57,9 +57,11 @@ MonoBehaviour:
   jsonReader: {fileID: 251928696962017899}
   actionManager: {fileID: 4642524689184077348}
   mapTextAssets:
-  - {fileID: 4900000, guid: 2f173b3a06982934888f35083b661fa4, type: 3}
-  - {fileID: 4900000, guid: 86219be30306bf64da8c860864dc936e, type: 3}
-  - {fileID: 4900000, guid: 04ceb13d714206b45a6e49f361374878, type: 3}
+  - {fileID: 4900000, guid: b5d06c8034873ea408987d2370d91fcb, type: 3}
+  - {fileID: 4900000, guid: b606a26e66eda5f41be12c926b3056e7, type: 3}
+  - {fileID: 4900000, guid: af5e602b3afe3d148844a3db5b899570, type: 3}
+  - {fileID: 4900000, guid: 38ca925b5da4d5b459b49cec859c7ecc, type: 3}
+  - {fileID: 4900000, guid: c8f1fc0d65cefe24e8855c7e132d1e53, type: 3}
   moneyText: {fileID: 0}
 --- !u!114 &995327858554467972
 MonoBehaviour:
@@ -153,4 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef507b68a7341044f8cf5196a434c47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionItemPrefab: {fileID: 5809377333363765199, guid: 1f65c7c40a798e545ad7ce0433bcfa3d, type: 3}
+  actionItemPrefab: {fileID: 7199733314088696904, guid: 1f65c7c40a798e545ad7ce0433bcfa3d, type: 3}

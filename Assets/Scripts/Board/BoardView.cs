@@ -86,6 +86,8 @@ public class BoardView : MonoBehaviour
                 cell.tile.transform.position = worldPosition;
                 cell.tile.name = "tile" + i + "|" + j;
                 cell.tile.resistance = mapTile.tileResist;
+                cell.tile.X = i;
+                cell.tile.Y = j;
 
                 // If has actor
                 if (mapTile.actorType >= 0)
@@ -93,7 +95,16 @@ public class BoardView : MonoBehaviour
                     Actor actor = actorFactory.CreateNewActor(mapTile.actorType);
                     actor.name = "actor" + i + "|" + j;
 
-                    cell.tile.Actor = actor;
+                    // Ultra hack, no hagan esto en casa chicxs
+                    Fire fire = actor as Fire;
+                    if(fire != null)
+                    {
+                        cell.tile.Fire = fire;
+                    }
+                    else
+                    {
+                        cell.tile.Actor = actor;
+                    }
                     actor.transform.parent = cell.tile.transform;
                 }
             }

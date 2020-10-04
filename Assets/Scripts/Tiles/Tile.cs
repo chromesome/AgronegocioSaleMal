@@ -1,14 +1,40 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IDestructible
+public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public int level;
     public float resistance = 100f;
     [SerializeField] float maxResistance = 100f;
+    [SerializeField] List<Sprite> tileStateSprites;
+    [SerializeField] List<float> spawnPosition;
+
+    int x;
+    int y;
+
+    public int X
+    {
+        get => x;
+        set
+        {
+            x = value;
+            SortingLayer();
+        }
+    }
+
+    public int Y
+    {
+        get => y;
+        set
+        {
+            y = value;
+            SortingLayer();
+        }
+    }
+
     Actor actor;
     Fire fire;
 
@@ -20,7 +46,13 @@ public class Tile : MonoBehaviour, IDestructible
         set
         {
             actor = value;
-            actor.transform.position = spawnPoint.transform.position;
+            if(actor != null)
+            {
+                actor.transform.parent = this.transform;
+                actor.transform.position = spawnPoint.transform.position;
+                actor.X = x;
+                actor.Y = y;
+            }
         }
     }
 
@@ -31,8 +63,13 @@ public class Tile : MonoBehaviour, IDestructible
         set
         {
             fire = value;
-            fire.transform.parent = this.transform;
-            fire.transform.position = spawnPoint.transform.position;
+            if(fire != null)
+            {
+                fire.transform.parent = this.transform;
+                fire.transform.position = spawnPoint.transform.position;
+                fire.X = x;
+                fire.Y = y;
+            }
         }
     }
 
@@ -70,45 +107,6 @@ public class Tile : MonoBehaviour, IDestructible
     private void Start()
     {
         sprTile = this.GetComponent<SpriteRenderer>();
-    }
-
-    private void OnMouseEnter()
-    {
-        if(selectable && !selected)
-        {
-            sprTile.color = Color.gray;
-        }
-    }
-
-    private void OnMouseExit()
-    {
-        if(!selected)
-        {
-            sprTile.color = Color.white;
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        #region DEBUG
-        Debug.Log("OnMouseDown " + this.name);
-        Debug.Log("Actor " + Actor);
-        Debug.Log("neighbors------");
-        foreach (Tile item in neighbours)
-        {
-            Debug.Log(item.name);
-        }
-        #endregion
-
-        if(this != GameManager.instance.SelectedTile)
-        {
-            if (selectable)
-            {
-                selected = true;
-                sprTile.color = Color.red;
-                GameManager.instance.SelectedTile = this;
-            }
-        }
     }
 
     internal void Unselect()
@@ -162,26 +160,74 @@ public class Tile : MonoBehaviour, IDestructible
     public float ReceiveDamage(float damage)
     {
         Debug.Log(this.name + " received damage = " + damage);
-        Tree tree = Actor as Tree;
-        if(tree != null)
+        if(level < 9)
         {
-            damage = tree.ReceiveDamage(damage);
-        }
-        else if(IsOnFire())
-        {
-            Fire.Consume();
-        }
+            Tree tree = Actor as Tree;
+            if(tree != null)
+            {
+                damage = tree.ReceiveDamage(damage);
+            }
+            else if(IsOnFire())
+            {
+                Fire.Consume();
+            }
 
-        // take remaining damage
-        resistance -= damage;
+            // take remaining damage
+            resistance -= damage;
 
-        if(resistance < 0)
-        {
-            // TODO: DemoteTile();
+            if(resistance <= 0)
+            {
+                float remainingDamage = Mathf.Abs(resistance - damage);
+                DemoteTile();
+
+                resistance -= remainingDamage;
+            }
         }
 
         // Tile receives all damage
         return 0;
+    }
+
+    private void DemoteTile()
+    {
+        Debug.Log("Downgrade " + this.name);
+        level -= 1;
+        resistance = maxResistance;
+        this.GetComponent<SpriteRenderer>().sprite = tileStateSprites[level];
+        SetupActions();
+
+        if(level == 5 && IsOnFire())
+        {
+            Destroy(Fire.gameObject);
+            Fire = null;
+        }
+
+        if(level < 3)
+        {
+            Destroy(Actor.gameObject);
+            Actor = null;
+        }
+
+        ReajustSpawnPoint();
+    }
+
+    private void ReajustSpawnPoint()
+    {
+        // Modo cabeza mal
+        Transform spawnTransform = spawnPoint.transform;
+        Vector3 newSpawnPosition = new Vector3(spawnTransform.localPosition.x, spawnPosition[level]);
+
+        spawnTransform.localPosition = newSpawnPosition;
+
+        if(Actor != null)
+        {
+            Actor.transform.localPosition = newSpawnPosition;
+        }
+
+        if(Fire != null)
+        {
+            Fire.transform.localPosition = newSpawnPosition;
+        }
     }
 
     public bool IsOnFire()
@@ -195,19 +241,16 @@ public class Tile : MonoBehaviour, IDestructible
         // Si es agua no hagas nada
         if(level < 9)
         {
-            if(actor == null)
+            bool setFire = true;
+
+            float fireChance = resistance + level - RiskModifier();
+            float rndNumber = UnityEngine.Random.Range(0, 99);
+
+            setFire = fireChance < rndNumber ? true : false;
+
+            if (setFire)
             {
-                bool setFire = true;
-
-                float fireChance = resistance + level - RiskModifier();
-                float rndNumber = UnityEngine.Random.Range(0, 99);
-
-                setFire = fireChance < rndNumber ? true : false;
-
-                if (setFire)
-                {
-                    this.Fire = Instantiate(fire);
-                }
+                this.Fire = Instantiate(fire);
             }
         }
     }
@@ -225,5 +268,66 @@ public class Tile : MonoBehaviour, IDestructible
         }
 
         return riskModifier;
+    }
+
+    private void SortingLayer()
+    {
+        SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
+        if (sprRenderer != null)
+        {
+            sprRenderer.sortingOrder = y == 0 ? y : y + 3;
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (!selected)
+        {
+            sprTile.color = Color.white;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        #region DEBUG
+        Debug.Log("OnMouseDown " + this.name);
+        Debug.Log("Actor " + Actor);
+        Debug.Log("neighbors------");
+        foreach (Tile item in neighbours)
+        {
+            Debug.Log(item.name);
+        }
+        #endregion
+
+        if (this != GameManager.instance.SelectedTile)
+        {
+            if (selectable)
+            {
+                selected = true;
+                sprTile.color = Color.red;
+                GameManager.instance.SelectedTile = this;
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (selectable && !selected)
+        {
+            sprTile.color = Color.gray;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!selected)
+        {
+            sprTile.color = Color.white;
+        }
     }
 }

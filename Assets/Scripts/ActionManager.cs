@@ -24,7 +24,7 @@ public class ActionItem
         triggerAction = f_triggerAction;
         cost = n_cost;
     }
-    
+
 }
 
 public class ActionManager : MonoBehaviour
@@ -57,7 +57,7 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-    internal void InstantiateActions(Tile tile, List<ActionItem> actions)
+    internal void InstantiateActions(List<ActionItem> actions)
     {
         // HACK
         if (ParentPanel == null)
