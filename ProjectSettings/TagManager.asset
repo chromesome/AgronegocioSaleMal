@@ -8,6 +8,7 @@ TagManager:
   - Panel
   - MoneyText
   - Canvas
+  - Fire
   layers:
   - Default
   - TransparentFX

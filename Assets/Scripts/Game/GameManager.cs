@@ -80,6 +80,10 @@ public class GameManager : MonoBehaviour
         // HACK
         if (moneyText == null)
             moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
+
+        // OTRO HACK
+        gameObject.GetComponent<AudioManager>().CheckForNewFires();
+
         MapInfo mapInfo;
 
         if (moneyText == null)
@@ -178,6 +182,7 @@ public class GameManager : MonoBehaviour
             SelectedTile.Fire = actorFactory.CreateNewActor(3) as Fire;
             SelectedTile.SetupActions();
             actionManager.InstantiateActions(SelectedTile.GetActions());
+            GetComponent<AudioManager>().CheckForNewFires();
         }
     }
 
@@ -211,7 +216,7 @@ public class GameManager : MonoBehaviour
         if(fire != null)
         {
             fire.Mitigate();
-            if(SelectedTile.Fire == null)
+            if (SelectedTile.Fire == null)
             {
                 SelectedTile.SetupActions();
                 actionManager.InstantiateActions(SelectedTile.GetActions());

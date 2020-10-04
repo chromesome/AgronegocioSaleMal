@@ -70,6 +70,7 @@ public class Fire : Actor, IHarmful, IDestructible
             Tile tile = this.GetComponentInParent<Tile>();
             tile.Fire = null;
             Destroy(gameObject);
+            GameManager.instance.GetComponent<AudioManager>().CheckForNewFires();
         }
         else
         {
@@ -111,6 +112,8 @@ public class Fire : Actor, IHarmful, IDestructible
         gameManager.money -= mitigateCost;
         gameManager.moneyText.text = gameManager.money.ToString();
         ReceiveDamage(mitigateDamage);
+        // HACK 
+        GameManager.instance.GetComponent<AudioManager>().CheckForNewFires();
     }
     protected override void SortingLayer()
     {
