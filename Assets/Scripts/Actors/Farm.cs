@@ -27,10 +27,10 @@ public class Farm : Actor, IMakeMoney
     public override void SetupActions()
     {
         base.SetupActions();
-        actions.Add(new ActionItem(4, "MakeMoney", "ActionMakeMoney", 0));
+        actions.Add(new ActionItem(4, "Recaudar", "ActionMakeMoney", 0));
         if (level < maxUpgradeLevel)
         {
-            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", upgradeCost));
+            actions.Add(new ActionItem(6, "Mejorar", "ActionUpgrade", upgradeCost));
         }
     }
 
