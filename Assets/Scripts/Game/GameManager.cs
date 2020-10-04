@@ -136,9 +136,6 @@ public class GameManager : MonoBehaviour
 
         MapInfo mapInfo;
 
-        
-
-        MapInfo mapInfo;
         if (mapDictionary.TryGetValue(level, out mapInfo))
         {
             boardView.SetupBoard(mapInfo);
