@@ -20,16 +20,14 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.loop = true;
         currentFires = 0;
+        InvokeRepeating("CheckForNewFires", 0f, 1f);
     }
 
     public void CheckForNewFires()
     {
-        Debug.Log("SOnido fuego!!!");
         fireObjects = GameObject.FindGameObjectsWithTag("Fire");
-        Debug.Log("Que pasa aca? fireObjects = " + fireObjects.Length);
         if (fireObjects.Length != currentFires)
         {
-            Debug.Log("sdfgkjhadfgjklsdfg");
             currentFires = fireObjects.Length;
             UpdateFireLoopSound();
         }
@@ -37,28 +35,38 @@ public class AudioManager : MonoBehaviour
 
     public void UpdateFireLoopSound()
     {
-        Debug.Log("SOnido fuego!!! UpdateFireLoopSound");
+        bool playFire = false;
         if (fireObjects.Length >= FIRE_LEVEL_4)
         {
             audioSource.clip = fireAudioClips[3];
+            playFire = true;
         }
         else if (fireObjects.Length >= FIRE_LEVEL_3)
         {
             audioSource.clip = fireAudioClips[2];
+            playFire = true;
         }
         else if (fireObjects.Length >= FIRE_LEVEL_2)
         {
             audioSource.clip = fireAudioClips[1];
+            playFire = true;
         }
         else if (fireObjects.Length >= FIRE_LEVEL_1)
         {
             audioSource.clip = fireAudioClips[0];
+            playFire = true;
         }
         else if (fireObjects.Length <= 0)
         {
-            Debug.Log("Stop Llega aca ???");
+            playFire = false;
+        }
+        if (playFire == true)
+        {
+            audioSource.Play();
+        }
+        else if (audioSource.isPlaying == true)
+        {
             audioSource.Stop();
         }
-        audioSource.Play();
     }
 }

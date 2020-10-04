@@ -251,8 +251,6 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
             if (setFire)
             {
                 this.Fire = Instantiate(fire);
-                // HACK
-                GameManager.instance.GetComponent<AudioManager>().CheckForNewFires();
             }
         }
     }
