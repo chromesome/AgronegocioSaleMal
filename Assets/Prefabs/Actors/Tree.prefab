@@ -100,7 +100,7 @@ MonoBehaviour:
   maxHealth: 100
   chopDamage: 1
   chopCost: 10
-  factoryStateSprites:
+  treeStateSprites:
   - {fileID: 21300000, guid: de5ecd1eb204e224ea9d530a8ca3c0ad, type: 3}
   - {fileID: 21300000, guid: 814cb7c1521af614099d6f505004d566, type: 3}
   - {fileID: 21300000, guid: 0e1a2604e173b354e88f4c31826a6448, type: 3}
@@ -109,5 +109,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5a898b5f4a3da2540b68da876dda6428, type: 3}
   - {fileID: 21300000, guid: e655f5e0930a7ac4db8b043dc4d06b34, type: 3}
   - {fileID: 21300000, guid: c4f5667892f4f7e45813dcd86c91f521, type: 3}
+  - {fileID: 21300000, guid: c4f5667892f4f7e45813dcd86c91f521, type: 3}
+  - {fileID: 21300000, guid: 917a6a6a19fff4c429ea0fee38ba6b44, type: 3}
   - {fileID: 21300000, guid: 917a6a6a19fff4c429ea0fee38ba6b44, type: 3}
   - {fileID: 21300000, guid: 5048b938678778f45bbcd0d36f89fbcf, type: 3}

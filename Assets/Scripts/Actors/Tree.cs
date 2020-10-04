@@ -11,7 +11,7 @@ public class Tree : Actor, IDestructible
     [SerializeField] float chopDamage = 1f;
     [SerializeField] int chopCost = 10;
 
-    [SerializeField] List<Sprite> factoryStateSprites;
+    [SerializeField] List<Sprite> treeStateSprites;
 
     private void Start()
     {
@@ -73,7 +73,7 @@ public class Tree : Actor, IDestructible
                 currentTier -= 1;   // 0 base
             }
 
-            this.GetComponent<SpriteRenderer>().sprite = factoryStateSprites[currentTier];
+            this.GetComponent<SpriteRenderer>().sprite = treeStateSprites[currentTier];
         }
     }
 
