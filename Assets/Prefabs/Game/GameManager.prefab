@@ -55,6 +55,7 @@ MonoBehaviour:
   level: 0
   money: 0
   kills: 0
+  timeLimit: 90
   boardView: {fileID: 995327858554467972}
   jsonReader: {fileID: 251928696962017899}
   actionManager: {fileID: 4642524689184077348}
@@ -65,6 +66,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 38ca925b5da4d5b459b49cec859c7ecc, type: 3}
   - {fileID: 4900000, guid: c8f1fc0d65cefe24e8855c7e132d1e53, type: 3}
   moneyText: {fileID: 0}
+  timeText: {fileID: 0}
 --- !u!114 &995327858554467972
 MonoBehaviour:
   m_ObjectHideFlags: 0

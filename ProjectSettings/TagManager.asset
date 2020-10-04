@@ -9,6 +9,7 @@ TagManager:
   - MoneyText
   - Canvas
   - Fire
+  - TimeText
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,8 @@ public class CameraMovement : MonoBehaviour
     public float panSpeed = 2f;
     public float dragSpeed = 40f;
     public float scrollSpeed = 200f;
+    public float maxZoom = 1;
+    public float minZoom = 4;
 
     bool dragging = false;
 
@@ -52,7 +54,7 @@ public class CameraMovement : MonoBehaviour
         // Camera zoom
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         float newZoom = Camera.main.orthographicSize - scroll * scrollSpeed * Time.deltaTime;
-        Camera.main.orthographicSize = Mathf.Clamp(newZoom, 1, 3);
+        Camera.main.orthographicSize = Mathf.Clamp(newZoom, maxZoom, minZoom);
         
     }
 }
