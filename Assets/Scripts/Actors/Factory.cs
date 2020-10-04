@@ -43,7 +43,7 @@ public class Factory : Actor, IMakeMoney
         base.SetupActions();
         if (level < maxUpgradeLevel)
         {
-            actions.Add(new ActionItem(6, "Upgrade", "ActionUpgrade", (level+1)* multiplier));
+            actions.Add(new ActionItem(6, "Mejorar", "ActionUpgrade", (level+1)* multiplier));
         }
     }
 }

@@ -31,7 +31,7 @@ public class Fire : Actor, IHarmful, IDestructible
     public override void SetupActions()
     {
         actions = new List<ActionItem>();
-        actions.Add(new ActionItem(5, "Mitigate", "ActionMitigate", mitigateCost));
+        actions.Add(new ActionItem(5, "Mitigar", "ActionMitigate", mitigateCost));
     }
 
     public float GetCurrentHealth()

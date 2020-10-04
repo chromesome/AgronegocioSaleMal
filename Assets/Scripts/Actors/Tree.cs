@@ -21,8 +21,8 @@ public class Tree : Actor, IDestructible
     public override void SetupActions()
     {
         actions = new List<ActionItem>();
-        actions.Add(new ActionItem(2, "Fire", "ActionFire", 0));
-        actions.Add(new ActionItem(3, "Deforest", "ActionDeforest", chopCost));
+        actions.Add(new ActionItem(2, "Incendiar", "ActionFire", 0));
+        actions.Add(new ActionItem(3, "Talar", "ActionDeforest", chopCost));
     }
 
     public float GetCurrentHealth()

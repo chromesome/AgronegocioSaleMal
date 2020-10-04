@@ -59,6 +59,9 @@ public class ActionManager : MonoBehaviour
 
     internal void InstantiateActions(Tile tile, List<ActionItem> actions)
     {
+        // HACK
+        if (ParentPanel == null)
+            ParentPanel = GameObject.FindWithTag("Panel").GetComponent<RectTransform>();
         ClearActionItems();
 
         foreach (ActionItem action in actions)
@@ -71,7 +74,7 @@ public class ActionManager : MonoBehaviour
 
             actionProperties.actionId = action.id;
             actionProperties.actionCost = action.cost;
-            actionItemButton.GetComponentInChildren<Text>().text = action.label + "($ " + actionProperties.actionCost + ")";
+            actionItemButton.GetComponentInChildren<Text>().text = action.label + " ($ " + actionProperties.actionCost + ")";
             tempButton.onClick.AddListener(() => TriggerAction(action.triggerAction));
         }
     }

@@ -52,6 +52,7 @@ MonoBehaviour:
   worldHealth: 0
   level: 0
   money: 0
+  kills: 0
   boardView: {fileID: 995327858554467972}
   jsonReader: {fileID: 251928696962017899}
   actionManager: {fileID: 4642524689184077348}
@@ -59,6 +60,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 2f173b3a06982934888f35083b661fa4, type: 3}
   - {fileID: 4900000, guid: 86219be30306bf64da8c860864dc936e, type: 3}
   - {fileID: 4900000, guid: 04ceb13d714206b45a6e49f361374878, type: 3}
+  moneyText: {fileID: 0}
 --- !u!114 &995327858554467972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,4 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef507b68a7341044f8cf5196a434c47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionItemPrefab: {fileID: 7199733314088696904, guid: 1f65c7c40a798e545ad7ce0433bcfa3d, type: 3}
+  actionItemPrefab: {fileID: 5809377333363765199, guid: 1f65c7c40a798e545ad7ce0433bcfa3d, type: 3}

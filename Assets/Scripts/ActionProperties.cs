@@ -8,7 +8,17 @@ public class ActionProperties : MonoBehaviour
     public int actionCost;
     public int actionId;
 
+    public Image actionButtonImage;
+
+    [SerializeField]
+    public List<Sprite> actionButtonSprites;
+
     private int moneyRef = 0;
+
+    void Start()
+    {
+        actionButtonImage.sprite = actionButtonSprites[actionId];
+    }
 
     void Update()
     {

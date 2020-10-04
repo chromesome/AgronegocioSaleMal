@@ -76,6 +76,10 @@ public class GameManager : MonoBehaviour
     // Llamamos a este método cada vez que queremos inicializar un nivel
     void SetupMap()
     {
+
+        // HACK
+        if (moneyText == null)
+            moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<UnityEngine.UI.Text>();
         MapInfo mapInfo;
 
         if (mapDictionary.TryGetValue(level, out mapInfo))
@@ -125,7 +129,7 @@ public class GameManager : MonoBehaviour
     private void OnGUI()
     {
         if(tileSelected != null)
-            GUI.TextArea(new Rect(10, 40, 100, 150), tileSelected.GetDetails());
+            GUI.TextArea(new Rect(10, 60, 100, 150), tileSelected.GetDetails());
     }
 
     public void OnTileUpdated()
