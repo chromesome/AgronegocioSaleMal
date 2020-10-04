@@ -9,6 +9,9 @@ public class Tile : MonoBehaviour, IDestructible
     public int level;
     public float resistance = 100f;
     [SerializeField] float maxResistance = 100f;
+    [SerializeField] List<Sprite> tileStateSprites;
+    [SerializeField] List<float> spawnPosition;
+
     Actor actor;
     Fire fire;
 
@@ -181,13 +184,52 @@ public class Tile : MonoBehaviour, IDestructible
         // take remaining damage
         resistance -= damage;
 
-        if(resistance < 0)
+        if(resistance <= 0)
         {
-            // TODO: DemoteTile();
+            float remainingDamage = Mathf.Abs(resistance - damage);
+            DemoteTile();
+
+            resistance -= remainingDamage;
         }
 
         // Tile receives all damage
         return 0;
+    }
+
+    private void DemoteTile()
+    {
+        Debug.Log("Downgrade " + this.name);
+        level -= 1;
+        resistance = maxResistance;
+        this.GetComponent<SpriteRenderer>().sprite = tileStateSprites[level];
+        SetupActions();
+
+        if(level == 5 && IsOnFire())
+        {
+            Destroy(Fire.gameObject);
+            Fire = null;
+        }
+
+        ReajustSpawnPoint();
+    }
+
+    private void ReajustSpawnPoint()
+    {
+        // Modo cabeza mal
+        Transform spawnTransform = this.spawnPoint.transform;
+        Vector3 newSpawnPosition = new Vector3(spawnTransform.localPosition.x, spawnPosition[level]);
+
+        spawnTransform.localPosition = newSpawnPosition;
+
+        if(Actor != null)
+        {
+            Actor.transform.position = newSpawnPosition;
+        }
+
+        if(Fire != null)
+        {
+            Fire.transform.position = newSpawnPosition;
+        }
     }
 
     public bool IsOnFire()
@@ -201,7 +243,7 @@ public class Tile : MonoBehaviour, IDestructible
         // Si es agua no hagas nada
         if(level < 9)
         {
-            if(actor == null)
+            if(Actor == null)
             {
                 bool setFire = true;
 
