@@ -26,7 +26,7 @@ public class ActionProperties : MonoBehaviour
         audioSource.clip = buttonAudioClips[actionId];
 
         Button b = this.GetComponent<Button>();
-        b.onClick.AddListener(delegate () { AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0,0,-8)); });
+        b.onClick.AddListener(delegate () { AudioSource.PlayClipAtPoint(audioSource.clip, new Vector3(0,0,-8), audioSource.volume); });
     }
 
     void Update()
