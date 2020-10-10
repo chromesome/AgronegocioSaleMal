@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public const int IN_GAME = 1;
-    public const int ENDGAME = 3;
+    public const int ENDGAME = 2;
 
     public static GameManager instance;
 

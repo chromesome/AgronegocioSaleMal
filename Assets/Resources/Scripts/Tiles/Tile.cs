@@ -202,7 +202,7 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
             Fire = null;
         }
 
-        if(level < 3)
+        if(level < 3 && Actor != null)
         {
             Destroy(Actor.gameObject);
             Actor = null;
