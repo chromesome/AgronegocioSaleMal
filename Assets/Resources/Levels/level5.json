@@ -59,7 +59,7 @@
 				},{
 					"tileType": 1,
 					"tileResist":10,
-					"actorType":-1
+					"actorType":3
 				}]
 		},{
 			"row":1,
@@ -507,7 +507,7 @@
 			"tiles": [{
 					"tileType": 1,
 					"tileResist":10,
-					"actorType":-1
+					"actorType":3
 				},{
 					"tileType": 2,
 					"tileResist":10,
@@ -563,6 +563,6 @@
 				},{
 					"tileType": 1,
 					"tileResist":10,
-					"actorType":-1
+					"actorType":3
 				}]
 		}, 	] }
