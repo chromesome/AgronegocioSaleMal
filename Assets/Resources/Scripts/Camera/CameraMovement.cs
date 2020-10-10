@@ -10,6 +10,31 @@ public class CameraMovement : MonoBehaviour
 
     bool dragging = false;
 
+    void Start()
+    {
+        int currentLevel = GameManager.instance.level;
+
+        if (currentLevel == 3)
+        {
+            SetMoodMid();
+        }
+
+        if (currentLevel == 4)
+        {
+            SetMoodFulero();
+        }
+    }
+
+    private void SetMoodMid()
+    {
+        Camera.main.backgroundColor = new Color32(71, 93, 128, 0);
+    }
+
+    private void SetMoodFulero()
+    {
+        Camera.main.backgroundColor = new Color32(41, 51, 65, 0);
+    }
+
     void Update()
     {
         Vector3 pos = transform.position;

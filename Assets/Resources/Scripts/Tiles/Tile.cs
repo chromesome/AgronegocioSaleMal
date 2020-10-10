@@ -12,7 +12,8 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
     [SerializeField] float maxResistance = 100f;
     [SerializeField] List<Sprite> tileStateSprites;
     [SerializeField] List<float> spawnPosition;
-    [SerializeField] int landSize = 100;
+    [SerializeField] int forestDamage = 20;
+    [SerializeField] int landDamage = 10;
 
     int x;
     int y;
@@ -194,10 +195,7 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
 
     private void ProcessFaunaCasualty()
     {
-        if(level > 5 && level < 9)
-        {
-            GameManager.instance.RegisterKills(faunaMortality * level);
-        }
+        GameManager.instance.RegisterKills(faunaMortality * level);
     }
 
     private void DemoteTile()
@@ -212,7 +210,7 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
 
             if(level == 5)
             {
-                GameManager.instance.RegisterForestLost(landSize);
+                GameManager.instance.RegisterForestLost(forestDamage);
                 if(IsOnFire())
                 {
                     Destroy(Fire.gameObject);
@@ -228,7 +226,7 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
 
             if(level == 0)
             {
-                GameManager.instance.RegisterLandLost(landSize);
+                GameManager.instance.RegisterLandLost(landDamage);
             }
 
             ReajustSpawnPoint();

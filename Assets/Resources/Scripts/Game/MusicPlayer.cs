@@ -7,7 +7,9 @@ public class MusicPlayer : MonoBehaviour
     public List<AudioClip> musicAudioClips;
     public AudioSource audioSource;
 
-    const int MUSIC_CHILL = 0;
+    public const int MUSIC_CHILL = 0;
+    public const int MUSIC_MID = 1;
+    public const int MUSIC_FULERO = 2;
 
     void Start()
     {

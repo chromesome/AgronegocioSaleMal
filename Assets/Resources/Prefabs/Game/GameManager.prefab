@@ -142,6 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicAudioClips:
   - {fileID: 8300000, guid: 08730183f5eaf7247952308872d14ee1, type: 3}
+  - {fileID: 8300000, guid: 258467677c4f2e64c9a13754e41b8378, type: 3}
+  - {fileID: 8300000, guid: 01907f3fad8ca9b4fabc2780ac8f4cd1, type: 3}
   audioSource: {fileID: 2090374659186809883}
 --- !u!1 &3713582464592414844
 GameObject:
@@ -201,7 +203,7 @@ MonoBehaviour:
   kills: 0
   forestDestructionSize: 0
   scorchedLandSize: 0
-  timeLimit: 60
+  timeLimit: 90
   boardView: {fileID: 995327858554467972}
   jsonReader: {fileID: 251928696962017899}
   actionManager: {fileID: 4642524689184077348}
@@ -323,7 +325,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 41ba1e4d99371b446a82e94d1faf9cb1, type: 3}
   - {fileID: 8300000, guid: a4b575e9055df6f4a83ad9ff6d8bf677, type: 3}
   - {fileID: 8300000, guid: 3bbfcecd3f66f4642849b0b3b97a8103, type: 3}
-  musicPlayer: {fileID: 0}
+  musicPlayer: {fileID: 5589396605521645019}
   audioSource: {fileID: -4162911995804816093}
 --- !u!82 &-4162911995804816093
 AudioSource:

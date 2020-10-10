@@ -10,7 +10,7 @@ public class Tree : Actor, IDestructible
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float chopDamage = 1f;
     [SerializeField] int chopCost = 10;
-    [SerializeField] int faunaMortality = 10;
+    [SerializeField] int faunaMortality = 1;
 
     [SerializeField] List<Sprite> treeStateSprites;
 

@@ -160,12 +160,33 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(IN_GAME);
             timeStarted = false;
             SetTimerCountdown();
+
+            // Lo más cabeza, todo sea por la experiencia
+            if(level == 3)
+            {
+                SetMoodMid();
+            }
+
+            if (level == 4)
+            {
+                SetMoodFulero();
+            }
         }
         else 
         {
             timeStarted = false;
             WinGame();
         }
+    }
+
+    private void SetMoodMid()
+    {
+        GetComponentInChildren<MusicPlayer>().PlayMusicLoop(MusicPlayer.MUSIC_MID);
+    }
+
+    private void SetMoodFulero()
+    {
+        GetComponentInChildren<MusicPlayer>().PlayMusicLoop(MusicPlayer.MUSIC_FULERO);
     }
 
     public void LoseGame()
