@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour
         }
         else 
         {
+            timeStarted = false;
             WinGame();
         }
     }

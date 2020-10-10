@@ -314,7 +314,7 @@ MonoBehaviour:
   moneyWon: 0
   endText: {fileID: 316563310}
   iterator: 0
-  retryButton: {fileID: 1023861649}
+  retryButton: {fileID: 1176297123}
 --- !u!4 &1023861651
 Transform:
   m_ObjectHideFlags: 0

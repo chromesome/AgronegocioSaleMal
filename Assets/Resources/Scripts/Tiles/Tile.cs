@@ -191,24 +191,27 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
     private void DemoteTile()
     {
         Debug.Log("Downgrade " + this.name);
-        level -= 1;
-        resistance = maxResistance;
-        this.GetComponent<SpriteRenderer>().sprite = tileStateSprites[level];
-        SetupActions();
-
-        if(level == 5 && IsOnFire())
+        if(level > 0)
         {
-            Destroy(Fire.gameObject);
-            Fire = null;
-        }
+            level -= 1;
+            resistance = maxResistance;
+            this.GetComponent<SpriteRenderer>().sprite = tileStateSprites[level];
+            SetupActions();
 
-        if(level < 3 && Actor != null)
-        {
-            Destroy(Actor.gameObject);
-            Actor = null;
-        }
+            if(level == 5 && IsOnFire())
+            {
+                Destroy(Fire.gameObject);
+                Fire = null;
+            }
 
-        ReajustSpawnPoint();
+            if(level < 3 && Actor != null)
+            {
+                Destroy(Actor.gameObject);
+                Actor = null;
+            }
+
+            ReajustSpawnPoint();
+        }
     }
 
     private void ReajustSpawnPoint()
