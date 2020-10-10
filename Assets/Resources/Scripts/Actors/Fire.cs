@@ -12,8 +12,8 @@ public class Fire : Actor, IHarmful, IDestructible
     [SerializeField] float maxMitigateDamage = 20f;
     [SerializeField] float minMitigateDamage = 10f;
     [SerializeField] int mitigateCost = 10;
-    [SerializeField] float secondsDamage;
-    [SerializeField] float secondsSpread;
+    [SerializeField] float secondsDamage = 1f;
+    [SerializeField] float secondsSpread = 5f;
 
     [SerializeField] Fire offspring;
 

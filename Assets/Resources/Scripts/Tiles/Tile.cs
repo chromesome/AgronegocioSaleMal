@@ -8,9 +8,11 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
 {
     public int level;
     public float resistance = 100f;
+    [SerializeField] int faunaMortality = 10;
     [SerializeField] float maxResistance = 100f;
     [SerializeField] List<Sprite> tileStateSprites;
     [SerializeField] List<float> spawnPosition;
+    [SerializeField] int landSize = 100;
 
     int x;
     int y;
@@ -162,6 +164,8 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
         Debug.Log(this.name + " received damage = " + damage);
         if(level < 9)
         {
+            ProcessFaunaCasualty();
+
             Tree tree = Actor as Tree;
             if(tree != null)
             {
@@ -188,6 +192,14 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
         return 0;
     }
 
+    private void ProcessFaunaCasualty()
+    {
+        if(level > 5 && level < 9)
+        {
+            GameManager.instance.RegisterKills(faunaMortality * level);
+        }
+    }
+
     private void DemoteTile()
     {
         Debug.Log("Downgrade " + this.name);
@@ -198,16 +210,25 @@ public class Tile : MonoBehaviour, IDestructible, IPointerClickHandler, IPointer
             this.GetComponent<SpriteRenderer>().sprite = tileStateSprites[level];
             SetupActions();
 
-            if(level == 5 && IsOnFire())
+            if(level == 5)
             {
-                Destroy(Fire.gameObject);
-                Fire = null;
+                GameManager.instance.RegisterForestLost(landSize);
+                if(IsOnFire())
+                {
+                    Destroy(Fire.gameObject);
+                    Fire = null;
+                }
             }
 
             if(level < 3 && Actor != null)
             {
                 Destroy(Actor.gameObject);
                 Actor = null;
+            }
+
+            if(level == 0)
+            {
+                GameManager.instance.RegisterLandLost(landSize);
             }
 
             ReajustSpawnPoint();

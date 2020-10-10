@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 7
   resistance: 0
+  faunaMortality: 10
   maxResistance: 100
   tileStateSprites:
   - {fileID: 21300000, guid: 27d4ce8a344d199418f87b05d02211fd, type: 3}
@@ -122,6 +123,7 @@ MonoBehaviour:
   - 0.3
   - 0.43
   - 0.07
+  landSize: 100
   neighbours: []
   spawnPoint: {fileID: 3411937174869223494}
   selectable: 1

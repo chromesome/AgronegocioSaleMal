@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00062561, y: 0.00089073}
-  m_SizeDelta: {x: 693.77094, y: 215.935}
+  m_AnchoredPosition: {x: 0.00062561, y: 31.68}
+  m_SizeDelta: {x: 693.77094, y: 279.28348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316563310
 MonoBehaviour:
@@ -182,12 +182,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1f9b6843201dbed4cb76f5d8cb4e2996, type: 3}
-    m_FontSize: 36
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 64
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -311,6 +311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kills: 0
+  destroyedForestSize: 0
+  scorchedLandSize: 0
   moneyWon: 0
   endText: {fileID: 316563310}
   iterator: 0

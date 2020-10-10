@@ -10,6 +10,7 @@ public class Tree : Actor, IDestructible
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float chopDamage = 1f;
     [SerializeField] int chopCost = 10;
+    [SerializeField] int faunaMortality = 10;
 
     [SerializeField] List<Sprite> treeStateSprites;
 
@@ -47,6 +48,9 @@ public class Tree : Actor, IDestructible
     {
         float damageRemain = 0;
         health -= damage;
+
+        ProcessFaunaCasualty();
+
         if(health <= 0)
         {
             damageRemain = Mathf.Abs(health - damage);
@@ -59,6 +63,11 @@ public class Tree : Actor, IDestructible
             RefreshSprite();
         }
         return damageRemain;
+    }
+
+    private void ProcessFaunaCasualty()
+    {
+        GameManager.instance.RegisterKills(faunaMortality);
     }
 
     private void RefreshSprite()

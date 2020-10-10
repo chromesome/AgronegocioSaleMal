@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public int level;
     public int money;
     public int kills;
+    public int forestDestructionSize;
+    public int scorchedLandSize;
     public float timeLimit = 90f;
 
     public BoardView boardView;
@@ -176,6 +178,21 @@ public class GameManager : MonoBehaviour
         // TODO: Hacer que acá ""gane"" (?
         Debug.Log("Felicitaciones kpo, hiciste concha todo, ahora fijate si te podes comer lo' dolare (?");
         SceneManager.LoadScene(ENDGAME);
+    }
+
+    public void RegisterKills(int kills)
+    {
+        this.kills += kills;
+    }
+
+    public void RegisterForestLost(int forestSize)
+    {
+        this.forestDestructionSize += forestSize;
+    }
+
+    public void RegisterLandLost(int landSize)
+    {
+        this.scorchedLandSize += landSize;
     }
 
     public void OnTileUpdated()

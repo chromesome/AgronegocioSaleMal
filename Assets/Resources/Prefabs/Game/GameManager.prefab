@@ -199,7 +199,9 @@ MonoBehaviour:
   level: 0
   money: 0
   kills: 0
-  timeLimit: 10
+  forestDestructionSize: 0
+  scorchedLandSize: 0
+  timeLimit: 60
   boardView: {fileID: 995327858554467972}
   jsonReader: {fileID: 251928696962017899}
   actionManager: {fileID: 4642524689184077348}
