@@ -33,7 +33,7 @@ public class EndGame : MonoBehaviour
                 iterator++;
                 break;
             case 1:
-                endText.text = "Este mundo ya está muerto, pero el nuestro aún no. Toma acción antes de que sea demasiado tarde.";
+                endText.text = "Este mundo ya está muerto, pero el nuestro aún no. Hacé algo antes de que sea demasiado tarde.";
                 retryButton.GetComponentInChildren<Text>().text = "NO HAY PLANETA B";
                 iterator++;
                 break;
